@@ -1,0 +1,133 @@
+html {
+    width:100%; height:100%;
+}
+body {
+    width:100%; height:100%;
+    background: url("../src/img/alaska_moutains.jpg");
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-attachment: fixed;
+}
+#pageContainer {
+    z-index:1;
+    width:100%; height:100%;
+    
+}
+
+/* Header container - Menu de navigation */
+#headerContainer {
+    z-index:2;
+    width:100%; height:80px;
+    background:white;
+}
+#menuContainer {
+    width:50%; height:100%;
+    /* border:1px solid black; */
+    margin:auto;
+    display:flex;
+}
+.menu-item {
+    width:calc(100% / 3); height:100%;
+    /* border:1px solid red; */
+    display:flex;align-items:center; justify-content:center;
+}
+.menu-text {
+    color:black;
+    text-decoration:none;
+    transition: all 0.5s ease;
+}
+.menu-text:hover {
+    color:black;
+    text-decoration:underline;
+}
+
+/* Bannière container - La banière du site internet */
+#banniereContainer {
+    z-index:2;
+    width:100%; height:calc(100% - 80px);
+    background:transparent;
+    /* border:1px solid yellow; */
+    display:flex;align-items:center;justify-content:center;
+}
+#titleContainer {
+    width:100%;
+    text-align:center;
+    color:white;
+}
+#titleContainer h1{
+    font-family:'Times New Roman';
+    font-size:7em;
+}
+#titleContainer h2{
+    font-size:2em;
+}
+
+/* Le contenu des chapitres - Ici on trouve la liste des chapitres */
+#chapitresContainer {
+    z-index:2;
+    width:100%; height:50%;
+    background:transparent;
+    /* border:1px solid red; */
+}
+.chapitre-container {
+    z-index:2;
+    width:100%; height:50%;
+    background:white;
+    /* border:1px solid green; */
+    margin-bottom:5%;
+    display:flex;align-items:center;justify-content:center;
+}
+.chapitre-img {
+    width:30%;height:100%;
+    background: url("../src/img/back_chapitre.jpg");
+    background-size:cover;
+    background-repeat:no-repeat;
+}
+.chapitre-aside {
+    width:70%; height:100%;
+    background:rgba(197,204,215,1);
+}
+.chapitre-aside-inside {
+    margin:2.5%;
+    width:calc(100% - 5%);
+    height:calc(100% - 5%);
+    background:white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+.chapitre-aside-inside:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    cursor:pointer;
+}
+.chapitre-aside-inside-top {
+    width:100%; height:calc(100% - 30px);
+    display:flex;align-items:center;justify-content:center;
+    font-size:20px;
+}
+.chapitre-aside-inside-bottom {
+    width:100%; height:30px;
+    display:flex;align-items:center;justify-content:flex-end;
+    padding-right:10px;
+    font-size:14px;
+}
+
+.transparecied {
+    z-index:2;
+    width:100%; height:20%;
+    background:transparent;
+}
+.whited {
+    z-index:2;
+    width:100%; height:20%;
+    background:white;
+}
+
+
+/** FOR COMMON */
+.iced {
+    background:rgba(197,204,215,1);
+    transition:all 0.5 ease;
+}
+.iced:hover {
+    background:grey;
+}
