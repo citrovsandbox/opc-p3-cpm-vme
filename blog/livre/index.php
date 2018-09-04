@@ -1,16 +1,18 @@
 <?php
-require("../model/Chapitre.php");
+require("../../model/Chapitre.php");
 ?>
 <!doctype html>
 <html lang="fr">
 <head>
     <meta charset="utf-8">
     <title>Jean Forteroche</title>
-    <link rel="stylesheet" href="../lib/css/bootstrap.css">
-    <link rel="stylesheet" href="blog.css">
-    <script src="../lib/js/jquery.js"></script>
-    <script src="../lib/js/bootstrap.js"></script>
-    <script src="../lib/js/bootstrap.bundle.js"></script>
+    <link rel="stylesheet" href="../../lib/css/bootstrap.css">
+    <link rel="stylesheet" href="../../src/css/common-blog.css">
+    <link rel="stylesheet" href="livre.css">
+    <script src="../../lib/js/jquery.js"></script>
+    <script src="../../lib/js/bootstrap.js"></script>
+    <script src="../../lib/js/bootstrap.bundle.js"></script>
+    <script src="livre.js"></script>
 </head>
 <body>
 <div id="pageContainer">
@@ -44,7 +46,7 @@ require("../model/Chapitre.php");
         ?>
         <div class="chapitre-container">
             <div class="chapitre-img"></div>
-            <div class="chapitre-aside" onclick="window.location.href = './chapitre?id=<?= $result['ch_id'] ?>'">
+            <div class="chapitre-aside" onclick="window.location.href = '../chapitre?id=<?= $result['ch_id'] ?>'">
                 <div id="chapter-<?= $result['ch_id']?>" class="chapitre-aside-inside">
                     <div class="chapitre-aside-inside-top">
                         <?= $result['ch_title'] ?>
@@ -62,8 +64,5 @@ require("../model/Chapitre.php");
         ?>
     </section>
 </div>
-<script src="blog.js">
-
-</script>
 </body>
 </html>

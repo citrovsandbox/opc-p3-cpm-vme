@@ -1,5 +1,5 @@
 <?php
-require('../utils/functions.php');
+require('../../utils/functions.php');
 
 class Chapitre {
     /**
