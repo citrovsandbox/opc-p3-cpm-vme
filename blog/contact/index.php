@@ -24,10 +24,10 @@ require("../../model/Chapitre.php");
                 <a href="../livre" class="menu-text">Le livre</a></p>
             </div>
             <div class="menu-item">
-                <a href="#" class="menu-text">L'auteur</a></p>
+                <a href="../about" class="menu-text">L'auteur</a></p>
             </div>
             <div class="menu-item">
-                <a href="../contact" class="menu-text">Le contact</a></p>
+                <a href="#" class="menu-text">Le contact</a></p>
             </div>
         </div>
     </nav>
