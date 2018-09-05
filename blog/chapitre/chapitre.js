@@ -1,6 +1,6 @@
 $(function() {
     
-    $("#menuToggle").click(function(){
+    $('#menuToggle').click(function(){
         if(oViewModel.fullComments) {
             hideComments();
         } else {
@@ -8,12 +8,18 @@ $(function() {
         }
     });
 
-    $("#submitButton").click(function() {
-        var sAuthor = $("#usernameInput").val();
-        var sContent = $("#commentTextarea").val();
-        
+    $('.comment-flag').click(function(){
+        var iId = $(this).data('flag');
+        var sState = $(this).data('state');
+        console.log(sState);
+        if(sState === "unreported") {
+            // On contacte le serveur pour upload le flag
+            // Si la requete passe alors on appeller changeFlag
+            // on met à jour data.state vu que la fonction changeflag est à sens unique
+            changeFlag(this);
+            $(this).data('state', 'reported');
+        }
     });
-
 })
 /**
  * --------------------------------------------
@@ -48,4 +54,8 @@ function hideComments () {
     $('#commentsContainer').css('height', 'auto');
     $('#menuToggle').css('transform', 'rotate(0deg)');
     oViewModel.fullComments = false;
+}
+function changeFlag (DOMObject) {
+    $(DOMObject).html('<i class="fas fa-flag"></i>');
+    $(DOMObject).css('color', 'orange');
 }
