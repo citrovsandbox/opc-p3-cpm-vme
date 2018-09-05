@@ -1,5 +1,7 @@
 <?php
-require("../../model/Chapitre.php");
+require '../../utils/functions.php';
+require '../../class/Autoloader.php'; 
+Autoloader::register(); 
 ?>
 <!doctype html>
 <html lang="fr">
@@ -40,16 +42,16 @@ require("../../model/Chapitre.php");
 
     <section id="chapitresContainer">
         <?php
-        $model = new Chapitre;
-        $req = $model->get();
-        while($result = $req->fetch()) {
+        $Chapitre = new Chapitre;
+        $req = $Chapitre->get();
+        while($chapitre = $req->fetch()) {
         ?>
         <div class="chapitre-container">
             <div class="chapitre-img"></div>
-            <div class="chapitre-aside" onclick="window.location.href = '../chapitre?id=<?= $result['ch_id'] ?>'">
-                <div id="chapter-<?= $result['ch_id']?>" class="chapitre-aside-inside">
+            <div class="chapitre-aside" onclick="window.location.href = '../chapitre?id=<?= $chapitre['ch_id'] ?>'">
+                <div id="chapter-<?= $chapitre['ch_id']?>" class="chapitre-aside-inside">
                     <div class="chapitre-aside-inside-top">
-                        <?= $result['ch_title'] ?>
+                        <?= $chapitre['ch_title'] ?>
                     </div>
                     <div class="chapitre-aside-inside-bottom">
                         <div class="comment-container">

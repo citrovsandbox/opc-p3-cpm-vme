@@ -1,6 +1,7 @@
 <?php
-require("../../model/Chapitre.php");
-require("../../model/Comment.php");
+require '../../utils/functions.php';
+require '../../class/Autoloader.php';
+Autoloader::register(); 
 $Chapitre = new Chapitre;
 $chapitre = $Chapitre->getSpecific($_GET['id']);
 
@@ -83,25 +84,26 @@ $req = $Comment->get($_GET['id']);
     <div class="separator"></div>
     <!-- Zone de saisie d'un commentaire -->
     <section id="commentWriteContainer">
-        <div id="formContainer">
+        <form id="formContainer" method="POST" action="../../api/postComment.php">
             <!-- Pseudo -->
             <h6>Laisser un commentaire</h6>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">Votre nom</span>
                 </div>
-                <input id="usernameInput" type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                <input name="author" id="usernameInput" type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
             </div>
             <!-- Textarea -->
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Commentaire</span>
                 </div>
-                <textarea id="commentTextarea" class="form-control" aria-label="With textarea"></textarea>
+                <textarea name="content" id="commentTextarea" class="form-control" aria-label="With textarea"></textarea>
             </div>
+            <input name="chapterid" type="text" value="<?= $_GET['id'] ?>" style="display:none;">
             <!-- Submit -->
-            <button id="submitButton" type="button" class="btn btn-info">Poster</button>
-        </div>
+            <button id="submitButton" type="submit" class="btn btn-info">Poster</button>
+        </form>
     </section>
     <div class="separator"></div>
 </div>

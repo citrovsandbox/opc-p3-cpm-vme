@@ -8,6 +8,12 @@ $(function() {
         }
     });
 
+    $("#submitButton").click(function() {
+        var sAuthor = $("#usernameInput").val();
+        var sContent = $("#commentTextarea").val();
+        
+    });
+
 })
 /**
  * --------------------------------------------

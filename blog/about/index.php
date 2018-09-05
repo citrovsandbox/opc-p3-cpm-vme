@@ -1,6 +1,3 @@
-<?php
-require("../../model/Chapitre.php");
-?>
 <!doctype html>
 <html lang="fr">
 <head>
