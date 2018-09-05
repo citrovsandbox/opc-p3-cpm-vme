@@ -1,0 +1,156 @@
+/* Header container - Menu de navigation */
+#headerContainer {
+    z-index:2;
+    width:100%; height:80px;
+    background:white;
+}
+#menuContainer {
+    width:50%; height:100%;
+    /* border:1px solid black; */
+    margin:auto;
+    display:flex;
+}
+.menu-item {
+    width:calc(100% / 3); height:100%;
+    /* border:1px solid red; */
+    display:flex;align-items:center; justify-content:center;
+}
+.menu-text {
+    color:black;
+    text-decoration:none;
+    transition: all 0.5s ease;
+}
+.menu-text:hover {
+    color:black;
+    text-decoration:underline;
+}
+
+/* Bannière container - La banière du site internet */
+#banniereContainer {
+    z-index:2;
+    width:100%; height:calc(100% - 80px);
+    background:transparent;
+    /* border:1px solid yellow; */
+    display:flex;align-items:center;justify-content:center;
+}
+#titleContainer {
+    width:100%;
+    text-align:center;
+    color:white;
+}
+#titleContainer h1{
+    font-family:'Times New Roman';
+    font-size:7em;
+}
+#titleContainer h2{
+    font-size:2em;
+}
+
+/* Le contenu du chapitre - Ici on trouve le contenu du chapitre */
+#contentContainer {
+    font-family:'Times New Roman';
+    z-index:2;
+    width:50%; height:auto;
+    margin:auto;
+    background:white;
+
+    padding:5%;
+    /* border:1px solid red; */
+}
+#contentContainer p {
+    text-align:justify;
+}
+#contentContainer h3 {
+
+}
+/* La zone des commentaires */
+#headerCommentsContainer {
+    width:50%; height:50px;
+    margin:auto;
+    background:white;
+    /* border:1px solid red; */
+    display:flex;align-items:center;justify-content:space-between;
+}
+#headerCommentsContainerLeft {
+    width:50%;height:100%;
+    /* border:1px solid blue; */
+    display:flex;align-items:center;
+    margin-left:2%;
+}
+#headerCommentsContainerRight {
+    width:50%;height:100%;
+    /* border:1px solid purple; */
+    display:flex;align-items:center;justify-content:flex-end;
+    font-size:30px;
+    margin-right:2%;
+}
+#menuToggle {
+    cursor:pointer;
+    transition: all 0.5s ease;
+}
+#menuToggle:hover {
+    opacity:0.6;
+}
+#commentsContainer {
+    z-index:2;
+    width:50%; height:auto;
+    margin:auto;
+    background:white;
+    overflow:hidden;
+    transition:all 0.5s ease;
+}
+.comment {
+    width:90%; height:auto;
+    /* border-radius:20px; */
+    /* background:rgba(89,128,148,1); */
+    margin:auto; margin-bottom:20px;
+}
+.comment-header {
+    display:flex;align-items:center;justify-content:space-between;
+}
+.comment-date {
+    font-size:12px;
+}
+.comment-flag {
+    cursor:pointer;
+    transition:all 0.5s ease;
+}
+.comment-flag:hover {
+    opacity:0.6;
+}
+.comment-content {
+    text-align:justify;
+}
+
+/* La zone de post d'un commentaire */
+#commentWriteContainer {
+    z-index:2;
+    width:50%; height:50%;
+    margin:auto;
+    display:flex;align-items:center;justify-content:center;
+    /* background:grey; */
+}
+
+#formContainer {
+    width:60%; height:auto;
+    margin:auto;
+}
+#formContainer h6 {
+    color:white;
+}
+#submitButton{
+    margin-top:10px;
+    float:right;
+}
+/**
+Classes
+*/
+.separator {
+    z-index:2;
+    width:100%;height:50px;
+    background:transparent;
+}
+.header-comments-container-content {
+    font-size:20px;
+    width:50%;
+}
