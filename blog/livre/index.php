@@ -43,6 +43,7 @@ Autoloader::register();
     <section id="chapitresContainer">
         <?php
         $Chapitre = new Chapitre;
+        $Comment = new Comment;
         $req = $Chapitre->get();
         while($chapitre = $req->fetch()) {
         ?>
@@ -55,7 +56,7 @@ Autoloader::register();
                     </div>
                     <div class="chapitre-aside-inside-bottom">
                         <div class="comment-container">
-                            <span class="badge badge-pill badge-primary iced"> 12 Commentaires</span>
+                            <span class="badge badge-pill badge-primary iced"> <?= $Comment->forChapter($chapitre['ch_id']) ?> Commentaires</span>
                         </div>
                     </div>
                 </div>

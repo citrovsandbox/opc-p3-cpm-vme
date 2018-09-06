@@ -60,9 +60,6 @@
 #contentContainer p {
     text-align:justify;
 }
-#contentContainer h3 {
-
-}
 /* La zone des commentaires */
 #headerCommentsContainer {
     width:50%; height:50px;

@@ -10,6 +10,7 @@ $(function() {
      * -
      * -----------------------------------------
      */
+    initCommentsHeight();
     renderCommentsFlag();
     /**
      * ----------------------------------------
@@ -66,6 +67,7 @@ $(function() {
  * ---------------------------------------------
  */
 var oViewModel = {
+    commentsHeight:'0px',
     fullComments:false
 }
 /**
@@ -79,12 +81,12 @@ var oViewModel = {
  * ---------------------------------------------
  */
 function showComments () {
-    $('#commentsContainer').css('height', '0%');
+    $('#commentsContainer').css('height', '0px');
     $('#menuToggle').css('transform', 'rotate(180deg)');
     oViewModel.fullComments = true;
 }
 function hideComments () {
-    $('#commentsContainer').css('height', 'auto');
+    $('#commentsContainer').css('height', oViewModel.commentsHeight);
     $('#menuToggle').css('transform', 'rotate(0deg)');
     oViewModel.fullComments = false;
 }
@@ -100,5 +102,15 @@ function renderCommentsFlag () {
             changeFlag(oCommentFlag);
         }
     });
-    
+}
+/**
+ * @public
+ * Petit hack permettant de conserver height:auto
+ * mais d'avoir également l'animation fluide lorsque l'utilisateur
+ * masque les commentaires
+ * @returns {void}
+ */
+function initCommentsHeight () {
+    oViewModel.commentsHeight = $("#commentsContainer").height() + 'px';
+    $("#commentsContainer").css('height', oViewModel.commentsHeight);
 }

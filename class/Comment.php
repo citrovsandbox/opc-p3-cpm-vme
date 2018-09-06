@@ -44,4 +44,19 @@ class Comment {
         $req->bindValue(":commentid", $commentid);
         $req->execute();
     }
+    /**
+     * @public
+     * Fonction permettant de compter le nombre de commentaires
+     * pour une chapitre donné
+     * @param {Integer} $chapterid L'id du chapitre-cible
+     * @return {Integer} $result Le nombre de commentaire pour le chapitre
+     */
+    public function forChapter ($chapterid) {
+        $bdd = quickConnect();
+        $req = $bdd->prepare("SELECT COUNT(*) FROM comments WHERE com_chapitre_id=:chapterid");
+        $req->bindValue(":chapterid", $chapterid);
+        $req->execute();
+        $result = $req->fetch();  
+        return $result[0];
+    }
 }
