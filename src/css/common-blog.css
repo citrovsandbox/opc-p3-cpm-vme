@@ -17,6 +17,7 @@ body {
 /** FOR COMMON */
 .iced {
     background:rgba(89,138,170,1);
+    border:rgba(89,138,170,1);
     transition:all 0.5 ease;
 }
 .iced:hover {

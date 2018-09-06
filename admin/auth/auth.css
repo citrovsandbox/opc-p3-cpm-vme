@@ -1,0 +1,17 @@
+#pageContainer {
+    display:flex;align-items:center;justify-content:center;
+    color:white;
+}
+h4 {
+    font-family:'Times New Roman';
+}
+#authFormContainer {
+    width:30%;height:auto;
+    /* border:1px solid red; */
+}
+#submitButton {
+    width:100%;
+}
+#info {
+    margin-top:20px;
+}
