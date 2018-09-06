@@ -36,6 +36,17 @@ $(function() {
         console.log(sState);
         if(sState === "unreported") {
             // On contacte le serveur pour upload le flag
+            $.ajax({
+                type: "POST",  
+                url: "../../api/flagComment.php",
+                data: {commentId : iId}, 
+                success: function(res){  
+                    alert("Succès");
+                },
+                error: function(err) { 
+                    console.log("Erreur : " + err);
+                }       
+            });
             // Si la requete passe alors on appeller changeFlag
             // on met à jour data.state vu que la fonction changeflag est à sens unique
             changeFlag(this);

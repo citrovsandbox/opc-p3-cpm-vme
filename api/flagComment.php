@@ -4,7 +4,7 @@ require '../class/Comment.php';
 
 $Comment = new Comment;
 
-$commentid = htmlspecialchars($_POST['commentid']);
+$commentId = htmlspecialchars($_POST['commentId']);
 
-$Comment->flag($commentid);
+$Comment->flag($commentId);
 
