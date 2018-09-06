@@ -1,5 +1,27 @@
 $(function() {
-    
+    /**
+     * ----------------------------------------
+     * -
+     * -
+     * -
+     * -         onInit METHODS
+     * -
+     * -
+     * -
+     * -----------------------------------------
+     */
+    renderCommentsFlag();
+    /**
+     * ----------------------------------------
+     * -
+     * -
+     * -
+     * -         H A N D L E R S
+     * -
+     * -
+     * -
+     * -----------------------------------------
+     */
     $('#menuToggle').click(function(){
         if(oViewModel.fullComments) {
             hideComments();
@@ -57,5 +79,15 @@ function hideComments () {
 }
 function changeFlag (DOMObject) {
     $(DOMObject).html('<i class="fas fa-flag"></i>');
-    $(DOMObject).css('color', 'orange');
+    $(DOMObject).css('color', 'orange').css('cursor', 'default');
+}
+function renderCommentsFlag () {
+    var aCommentsFlags = $('.comment-flag').toArray();
+    aCommentsFlags.forEach((oCommentFlag) => {
+        var sState = $(oCommentFlag).data('state');
+        if(sState === 'reported') {
+            changeFlag(oCommentFlag);
+        }
+    });
+    
 }

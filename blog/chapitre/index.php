@@ -71,7 +71,7 @@ $req = $Comment->get($_GET['id']);
         <div class="comment">
             <div class="comment-header">
                 <h6><?= $comment['com_author'] ?> <span class="comment-date">le <?php $displayDate = new DateTime($comment['com_date']); echo $displayDate->format('d/m/Y'); ?></span></h6>
-                <div class="comment-flag" data-flag="<?= $comment['com_id'] ?>" data-state="<?php if($comment['com_flag'] == 0) { echo 'unreported';}else { echo 'reported';}?>"><i class="far fa-flag"></i></div>
+                <div class="comment-flag" data-flag="<?= $comment['com_id'] ?>" data-state="<?php if($comment['com_flag'] == 0) { echo 'unreported';}else { echo 'reported';}?>"><i class="far fa-flag" title="Commentaire abusif ? Cliquez pour signaler"></i></div>
             </div>
             <div class="comment-content">
                 <p><?= $comment['com_content'] ?></p>

@@ -31,4 +31,17 @@ class Comment {
         $req->execute();
 
     }
+    /**
+     * @public
+     * Fonction permettant de signaler un commentaire
+     * en changeant le flag du commentaire
+     * @param {Integer} $commentid
+     * @return {void}
+     */
+    public function flag ($commentid) {
+        $bdd = quickConnect();
+        $req = $bdd->prepare("UPDATE comments SET com_flag=1 WHERE com_id=:commentid");
+        $req->bindValue(":commentid", $commentid);
+        $req->execute();
+    }
 }
