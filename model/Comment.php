@@ -8,7 +8,7 @@ class Comment {
      * @return unfetched Chapitres
      */
     public function get ($id) {
-        $bdd = quickConnect();
+        $bdd = $this->_dbConnect();
         $req = $bdd->prepare("SELECT * FROM comments WHERE com_chapitre_id=:id");
         $req->bindValue(":id", $id);
         $req->execute();
@@ -23,13 +23,12 @@ class Comment {
      * @return {void}
      */
     public function post ($chapitreid, $author, $content) {
-        $bdd = quickConnect();
+        $bdd = $this->_dbConnect();
         $req = $bdd->prepare("INSERT into comments VALUES (0, :chapitreid, :author, :content, 0, CURRENT_DATE())");
         $req->bindValue(":chapitreid", $chapitreid);
         $req->bindValue(":author", $author);
         $req->bindValue(":content", $content);
         $req->execute();
-
     }
     /**
      * @public
@@ -39,7 +38,7 @@ class Comment {
      * @return {void}
      */
     public function flag ($commentid) {
-        $bdd = quickConnect();
+        $bdd = $this->_dbConnect();
         $req = $bdd->prepare("UPDATE comments SET com_flag=1 WHERE com_id=:commentid");
         $req->bindValue(":commentid", $commentid);
         $req->execute();
@@ -52,11 +51,26 @@ class Comment {
      * @return {Integer} $result Le nombre de commentaire pour le chapitre
      */
     public function forChapter ($chapterid) {
-        $bdd = quickConnect();
+        $bdd = $this->_dbConnect();
         $req = $bdd->prepare("SELECT COUNT(*) FROM comments WHERE com_chapitre_id=:chapterid");
         $req->bindValue(":chapterid", $chapterid);
         $req->execute();
         $result = $req->fetch();  
         return $result[0];
+    }
+    /**
+     * @private
+     * Fonction permettant de se connecter à la base de données
+     * @return {Object} PDO - L'objet de la connexion à la BDD
+     */
+    private function _dbConnect () {
+        try
+        {
+            return $bdd = new PDO('mysql:host=localhost;dbname=sandbox;charset=utf8', 'root', 'root');
+        }
+        catch (Exception $e)
+        {
+            return die('Erreur : ' . $e->getMessage());
+        }
     }
 }

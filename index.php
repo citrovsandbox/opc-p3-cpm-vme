@@ -5,5 +5,5 @@ if(isset($_SESSION['username'])) {
     header('Location: ./admin');
 // Sinon on redirige vers public
 } else {
-    header('Location: ./blog/livre');
+    header('Location: ./blog/livre.php');
 }

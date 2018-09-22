@@ -4,13 +4,13 @@ class Chapitre {
     /**
      * @public
      * Fonction permettant de d'aller chercher tous les chapitres dans la base
-     * @returns unfetched Chapitres
+     * @returns {Array} Les chapitres
      */
     public function get () {
-        $bdd = quickConnect();
+        $bdd = $this->_dbConnect();
         $req = $bdd->prepare("SELECT * FROM chapitres ORDER BY ch_id DESC");
         $req->execute();
-        return $req;
+        return $req->fetchAll();
     }
     /**
      * @public
@@ -19,11 +19,26 @@ class Chapitre {
      * @returns {Object} $result L'objet correspondant au chapitre trouvé
      */
     public function getSpecific ($id) {
-        $bdd = quickConnect();
+        $bdd = $this->_dbConnect();
         $req = $bdd->prepare("SELECT * FROM chapitres WHERE ch_id=:id");
         $req->bindValue(":id", $id);
         $req->execute();
         $result = $req->fetch();
         return $result;
+    }
+    /**
+     * @private
+     * Fonction permettant de se connecter à la base de données
+     * @return {Object} PDO - L'objet de la connexion à la BDD
+     */
+    private function _dbConnect () {
+        try
+        {
+            return $bdd = new PDO('mysql:host=localhost;dbname=sandbox;charset=utf8', 'root', 'root');
+        }
+        catch (Exception $e)
+        {
+            return die('Erreur : ' . $e->getMessage());
+        }
     }
 }

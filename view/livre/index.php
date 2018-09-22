@@ -1,8 +1,3 @@
-<?php
-require '../../utils/functions.php';
-require '../../class/Autoloader.php'; 
-Autoloader::register(); 
-?>
 <!doctype html>
 <html lang="fr">
 <head>
@@ -10,11 +5,11 @@ Autoloader::register();
     <title>Jean Forteroche</title>
     <link rel="stylesheet" href="../../lib/css/bootstrap.css">
     <link rel="stylesheet" href="../../src/css/common-blog.css">
-    <link rel="stylesheet" href="livre.css">
+    <link rel="stylesheet" href="../view/livre/livre.css">
     <script src="../../lib/js/jquery.js"></script>
     <script src="../../lib/js/bootstrap.js"></script>
     <script src="../../lib/js/bootstrap.bundle.js"></script>
-    <script src="livre.js"></script>
+    <script src="../view/livre/livre.js"></script>
 </head>
 <body>
 <div id="pageContainer">
@@ -25,10 +20,10 @@ Autoloader::register();
                 <a href="#" class="menu-text">Le livre</a></p>
             </div>
             <div class="menu-item">
-                <a href="../about" class="menu-text">L'auteur</a></p>
+                <a href="./about.php" class="menu-text">L'auteur</a></p>
             </div>
             <div class="menu-item">
-                <a href="../contact" class="menu-text">Le contact</a></p>
+                <a href="./contact.php" class="menu-text">Le contact</a></p>
             </div>
         </div>
     </nav>
@@ -41,30 +36,23 @@ Autoloader::register();
     </section>
 
     <section id="chapitresContainer">
-        <?php
-        $Chapitre = new Chapitre;
-        $Comment = new Comment;
-        $req = $Chapitre->get();
-        while($chapitre = $req->fetch()) {
-        ?>
+        <?php foreach($aChapters as $oChapter):?>
         <div class="chapitre-container">
             <div class="chapitre-img"></div>
-            <div class="chapitre-aside" onclick="window.location.href = '../chapitre?id=<?= $chapitre['ch_id'] ?>'">
-                <div id="chapter-<?= $chapitre['ch_id']?>" class="chapitre-aside-inside">
+            <div class="chapitre-aside" onclick="window.location.href = '../chapitre?id=<?= $oChapter['ch_id'] ?>'">
+                <div id="chapter-<?= $oChapter['ch_id']?>" class="chapitre-aside-inside">
                     <div class="chapitre-aside-inside-top">
-                        <?= $chapitre['ch_title'] ?>
+                        <?= $oChapter['ch_title'] ?>
                     </div>
                     <div class="chapitre-aside-inside-bottom">
                         <div class="comment-container">
-                            <span class="badge badge-pill badge-primary iced"> <?= $Comment->forChapter($chapitre['ch_id']) ?> Commentaires</span>
+                            <span class="badge badge-pill badge-primary iced"> <?= $oChapter['nb_comments'] ?> Commentaires</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <?php
-        }
-        ?>
+        <?php endforeach ?>
     </section>
 </div>
 </body>
