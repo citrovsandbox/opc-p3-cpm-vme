@@ -1,13 +1,3 @@
-<?php
-require '../../utils/functions.php';
-require '../../class/Autoloader.php';
-Autoloader::register(); 
-$Chapitre = new Chapitre;
-$chapitre = $Chapitre->getSpecific($_GET['id']);
-
-$Comment = new Comment;
-$req = $Comment->get($_GET['id']);
-?>
 <!doctype html>
 <html lang="fr">
 <head>
@@ -16,11 +6,11 @@ $req = $Comment->get($_GET['id']);
     <link rel="stylesheet" href="../../lib/css/bootstrap.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="../../src/css/common-blog.css">
-    <link rel="stylesheet" href="chapitre.css">
+    <link rel="stylesheet" href="../view/chapitre/chapitre.css">
     <script src="../../lib/js/jquery.js"></script>
     <script src="../../lib/js/bootstrap.js"></script>
     <script src="../../lib/js/bootstrap.bundle.js"></script>
-    <script src="chapitre.js"></script>
+    <script src="../view/chapitre/chapitre.js"></script>
 </head>
 <body>
 <div id="pageContainer">
@@ -28,13 +18,13 @@ $req = $Comment->get($_GET['id']);
     <nav id="headerContainer">
         <div id="menuContainer">
             <div class="menu-item">
-                <a href="../livre" class="menu-text">Le livre</a></p>
+                <a href="./livre.php" class="menu-text">Le livre</a></p>
             </div>
             <div class="menu-item">
-                <a href="../about" class="menu-text">L'auteur</a></p>
+                <a href="./about.php" class="menu-text">L'auteur</a></p>
             </div>
             <div class="menu-item">
-                <a href="../contact" class="menu-text">Le contact</a></p>
+                <a href="./contact.php" class="menu-text">Le contact</a></p>
             </div>
         </div>
     </nav>
@@ -42,14 +32,14 @@ $req = $Comment->get($_GET['id']);
     <section id="banniereContainer">
         <div id="titleContainer">
             <!-- <h1>Chapitre I — Un génie qui sent fout</h1> -->
-            <h2><?= $chapitre['ch_title'] ?></h2>
+            <h2><?= $oChapter->getTitle() ?></h2>
         </div>
     </section>
     <!-- Zone du contenu du chapitre -->
     <section id="contentContainer">
-        <h3><?= $chapitre['ch_title'] ?></h3>
+        <h3><?= $oChapter->getTitle() ?></h3>
         <p>
-            <?= $chapitre['ch_content'] ?>
+            <?= $oChapter->getContent() ?>
         </p>
     </section>
 
@@ -66,15 +56,15 @@ $req = $Comment->get($_GET['id']);
     <section id="commentsContainer">
         <!-- Un commentaire unitaire -->
         <?php
-        while($comment = $req->fetch()) {
+        foreach($aComments as $oComment) {
         ?>
         <div class="comment">
             <div class="comment-header">
-                <h6><?= $comment['com_author'] ?> <span class="comment-date">le <?php $displayDate = new DateTime($comment['com_date']); echo $displayDate->format('d/m/Y'); ?></span></h6>
-                <div class="comment-flag" data-flag="<?= $comment['com_id'] ?>" data-state="<?php if($comment['com_flag'] == 0) { echo 'unreported';}else { echo 'reported';}?>"><i class="far fa-flag" title="Commentaire abusif ? Cliquez pour signaler"></i></div>
+                <h6><?= $oComment->getAuthor() ?> <span class="comment-date">le <?php $oComment->getDate()/*$displayDate = new DateTime($oComment->getDate()); echo $displayDate->format('d/m/Y'); */ ?></span></h6>
+                <div class="comment-flag" data-flag="<?= $oComment->getId() ?>" data-state="<?php if($oComment->getFlag() == 0) { echo 'unreported';}else { echo 'reported';}?>"><i class="far fa-flag" title="Commentaire abusif ? Cliquez pour signaler"></i></div>
             </div>
             <div class="comment-content">
-                <p><?= $comment['com_content'] ?></p>
+                <p><?= $oComment->getContent() ?></p>
             </div>
         </div>
         <?php

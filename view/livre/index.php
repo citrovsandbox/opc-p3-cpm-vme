@@ -36,17 +36,17 @@
     </section>
 
     <section id="chapitresContainer">
-        <?php foreach($aChapters as $oChapter):?>
+        <?php foreach($aChapitres as $oChapter):?>
         <div class="chapitre-container">
             <div class="chapitre-img"></div>
-            <div class="chapitre-aside" onclick="window.location.href = '../chapitre?id=<?= $oChapter['ch_id'] ?>'">
-                <div id="chapter-<?= $oChapter['ch_id']?>" class="chapitre-aside-inside">
+            <div class="chapitre-aside" onclick="window.location.href = '../blog/chapitre.php?id=<?= $oChapter->getId() ?>'">
+                <div id="chapter-<?= $oChapter->getId() ?>" class="chapitre-aside-inside">
                     <div class="chapitre-aside-inside-top">
-                        <?= $oChapter['ch_title'] ?>
+                        <?= $oChapter->getTitle() ?>
                     </div>
                     <div class="chapitre-aside-inside-bottom">
                         <div class="comment-container">
-                            <span class="badge badge-pill badge-primary iced"> <?= $oChapter['nb_comments'] ?> Commentaires</span>
+                            <!-- <span class="badge badge-pill badge-primary iced"> <?php /*$oChapter->getNbComments() */ ?> Commentaires</span> -->
                         </div>
                     </div>
                 </div>
