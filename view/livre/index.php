@@ -36,7 +36,7 @@
     </section>
 
     <section id="chapitresContainer">
-        <?php foreach($aChapitres as $oChapter):?>
+        <?php foreach($aChapitres as $oChapter) {?>
         <div class="chapitre-container">
             <div class="chapitre-img"></div>
             <div class="chapitre-aside" onclick="window.location.href = '../blog/chapitre.php?id=<?= $oChapter->getId() ?>'">
@@ -52,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <?php endforeach ?>
+        <?php }?>
     </section>
 </div>
 </body>

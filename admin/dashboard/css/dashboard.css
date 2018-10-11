@@ -1,0 +1,37 @@
+html, body {
+    width:100%;height:100%;
+    background:rgb(23, 22, 43);
+}
+body  {
+    position:fixed;
+}
+#pageContainer {
+    width:100%;height:100%;
+    display:flex;align-items:center;justify-content:space-around;
+}
+#masterContainer {
+    width:150px; height:100%;
+    background:rgb(40, 39, 70);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+#detailsContainer {
+    width:calc(100% - 150px); height:100%;
+    background:transparent;
+    display:flex;
+    align-items:center;justify-content:center;
+}
+/**
+* PASTEL COLORS
+*/
+.pastel-red {
+    color:rgb(255, 117, 117);
+}
+.pastel-blue {
+    color:rgb(151, 221, 253);
+}
+.pastel-green {
+    color:rgb(177, 252, 181);
+}

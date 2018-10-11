@@ -1,0 +1,16 @@
+.menuButton {
+    height:150px; width:150px;
+    /* background:white; */
+    /* opacity:0.5; */
+    display:flex; align-items:center;
+    justify-content:center;
+}
+.menuIcon {
+    font-size:60px;
+    transition:all 0.4s ease;
+}
+.menuIcon:hover {
+    cursor:pointer;
+    opacity:0.5;
+}
+

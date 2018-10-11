@@ -4,13 +4,37 @@ $(function() {
      * -
      * -
      * -
+     * -         DOM Elements
+     * -
+     * -
+     * -
+     * -----------------------------------------
+     */
+    var oChaptersBtn = $('#toChaptersButton');
+    var oCommentsBtn = $('#toCommentsButton');
+    var oLogoutBtn = $('#toLogoutButton');
+    /**
+     * ----------------------------------------
+     * -
+     * -
+     * -
      * -         onInit METHODS
      * -
      * -
      * -
      * -----------------------------------------
      */
-    
+    oChaptersBtn.click(function() {
+
+    });
+
+    oCommentsBtn.click(function() {
+
+    });
+
+    oLogoutBtn.click(function() {
+        navTo('../lock.php');
+    });
     /**
      * ----------------------------------------
      * -
@@ -48,10 +72,3 @@ var oViewModel = {
  * -
  * ---------------------------------------------
  */
-/**
- * Fonction permettant de rediriger vers une autre page
- * @param {String} sUrl L'URL pour la redirection
- */
-function navTo (sUrl) {
-    window.location.href = sUrl;
-}
