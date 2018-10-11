@@ -1,18 +1,25 @@
+
 $(function() {
     /**
-     * ----------------------------------------
-     * -
-     * -
-     * -
-     * -         DOM Elements
-     * -
-     * -
-     * -
-     * -----------------------------------------
-     */
-    var oChaptersBtn = $('#toChaptersButton');
-    var oCommentsBtn = $('#toCommentsButton');
-    var oLogoutBtn = $('#toLogoutButton');
+         * ----------------------------------------
+         * -
+         * -
+         * -
+         * -         DOM Elements
+         * -
+         * -
+         * -
+         * -----------------------------------------
+         */
+        // Buttons
+        var oChaptersBtn = $('#toChaptersButton');
+        var oCommentsBtn = $('#toCommentsButton');
+        var oLogoutBtn = $('#toLogoutButton');
+
+        // Views
+        var oChaptersView = $('#manageChaptersContainer');
+        var oCommentsView = $('#manageCommentsContainer');
+        var oWelcomeView = $('#welcomeContainer');
     /**
      * ----------------------------------------
      * -
@@ -24,17 +31,8 @@ $(function() {
      * -
      * -----------------------------------------
      */
-    oChaptersBtn.click(function() {
-
-    });
-
-    oCommentsBtn.click(function() {
-
-    });
-
-    oLogoutBtn.click(function() {
-        navTo('../lock.php');
-    });
+    displayTheRightView();
+    
     /**
      * ----------------------------------------
      * -
@@ -46,6 +44,50 @@ $(function() {
      * -
      * -----------------------------------------
      */
+    oChaptersBtn.click(function() {
+        oViewModel.mode = 'chapters';
+        displayTheRightView();
+    });
+
+    oCommentsBtn.click(function() {
+        oViewModel.mode = 'comments';
+        displayTheRightView();
+    });
+
+    oLogoutBtn.click(function() {
+        navTo('../lock.php');
+    });
+    /**
+     * ---------------------------------------------
+     * -
+     * -
+     * -
+     * -         F U N C T I O N S
+     * -
+     * -
+     * ---------------------------------------------
+     */
+    function displayTheRightView() {
+        var sCurrentMode = oViewModel.mode;
+        console.log(sCurrentMode);
+        switch(sCurrentMode) {
+            case 'welcome':
+            oWelcomeView.css('display', 'block');
+            oChaptersView.css('display', 'none');
+            oCommentsView.css('display', 'none');
+            break;
+            case 'chapters':
+            oChaptersView.css('display', 'block');
+            oWelcomeView.css('display', 'none');
+            oCommentsView.css('display', 'none');
+            break;
+            case 'comments':
+            oCommentsView.css('display', 'block');
+            oWelcomeView.css('display', 'none');
+            oChaptersView.css('display', 'none');
+            break;
+        }
+    }
     
 })
 /**
@@ -59,16 +101,7 @@ $(function() {
  * -
  * ---------------------------------------------
  */
-var oViewModel = {
+var oMenuModel = {
 
 };
-/**
- * ---------------------------------------------
- * -
- * -
- * -
- * -         F U N C T I O N S
- * -
- * -
- * ---------------------------------------------
- */
+

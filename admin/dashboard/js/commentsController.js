@@ -4,13 +4,27 @@ $(function() {
      * -
      * -
      * -
+     * -         DOM Elements
+     * -
+     * -
+     * -
+     * -----------------------------------------
+     */
+    var oCommentSearchInput = $('#commentSearchInput');
+    var oCommentSearchButton = $('#commentsSearchButton');
+    
+    /**
+     * ----------------------------------------
+     * -
+     * -
+     * -
      * -         onInit METHODS
      * -
      * -
      * -
      * -----------------------------------------
      */
-    
+    refreshComments();
     /**
      * ----------------------------------------
      * -
@@ -22,21 +36,29 @@ $(function() {
      * -
      * -----------------------------------------
      */
-    
+    oChapterSearchInput.keyup(function(oEvent) { 
+        var sVal = $(this).val();
+        var sTitle = sVal;
+        refreshChapters(sTitle);
+    });
+
+    oChapterSearchButton.click(function() {
+
+    });
 })
 /**
  * --------------------------------------------
  * -
  * -
  * -              M O D E L
- * -       {Object} ViewModel
- * -   Un tout petit Modèle pour la vue
+ * -       {Object} oChapterViewModel
+ * -   Un tout petit Modèle pour la zone chapitre
  * -
  * -
  * ---------------------------------------------
  */
-var oViewModel = {
-    mode:'comments' // expected values : chapters, comments, createchapter, welcome
+var oCommentViewModel = {
+    comments:[]
 };
 /**
  * ---------------------------------------------
@@ -48,10 +70,3 @@ var oViewModel = {
  * -
  * ---------------------------------------------
  */
-/**
- * Fonction permettant de rediriger vers une autre page
- * @param {String} sUrl L'URL pour la redirection
- */
-function navTo (sUrl) {
-    window.location.href = sUrl;
-}
