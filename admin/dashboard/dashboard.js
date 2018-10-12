@@ -36,7 +36,7 @@ $(function() {
  * ---------------------------------------------
  */
 var oViewModel = {
-    mode:'comments' // expected values : chapters, comments, createchapter, welcome
+    mode:'chapters' // expected values : chapters, comments, welcome
 };
 /**
  * ---------------------------------------------

@@ -24,7 +24,7 @@ $(function() {
      * -
      * -----------------------------------------
      */
-    refreshComments();
+    // refreshComments();
     /**
      * ----------------------------------------
      * -
@@ -36,15 +36,15 @@ $(function() {
      * -
      * -----------------------------------------
      */
-    oChapterSearchInput.keyup(function(oEvent) { 
-        var sVal = $(this).val();
-        var sTitle = sVal;
-        refreshChapters(sTitle);
-    });
+    // oChapterSearchInput.keyup(function(oEvent) { 
+    //     var sVal = $(this).val();
+    //     var sTitle = sVal;
+    //     refreshChapters(sTitle);
+    // });
 
-    oChapterSearchButton.click(function() {
+    // oChapterSearchButton.click(function() {
 
-    });
+    // });
 })
 /**
  * --------------------------------------------

@@ -11,13 +11,16 @@ protect();
     <link rel="stylesheet" href="../../lib/css/bootstrap.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="../../src/css/common-admin.css">
+    <link rel="stylesheet" href="../../lib/css/custombox.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/master.css">
     <link rel="stylesheet" href="css/details.css">
     <link rel="stylesheet" href="css/manageChapters.css">
+    <link rel="stylesheet" href="css/writeChapter.css">
     <link rel="stylesheet" href="css/manageComments.css">
     <link rel="stylesheet" href="css/welcome.css">
     <script src="../../lib/js/jquery.js"></script>
+    <script src="../../lib/js/custombox.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="../../lib/js/bootstrap.js"></script>
     <script src="../../lib/js/bootstrap.bundle.js"></script>
@@ -28,10 +31,10 @@ protect();
 </head>
 <body>
 <div id="pageContainer">
-    <!-- Master  -->
+    <!-- MASTER  -->
     <?php include('./fragments/master.html') ?>
 
-    <!-- Details -->
+    <!-- DETAILS -->
     <section id="detailsContainer">
         <!-- Bloc de contenu qui chargera les différents container en f((x) des actions -->
         <div id="detailsContentContainer">
@@ -44,12 +47,14 @@ protect();
 
             <!-- Vue de gestion des commentaires -->
             <?php include('./fragments/comments.html'); ?>
-            
+
         </div>
     </section>
 </div>
 
-<!-- CHAPTER MODAL -->
+<!-- CHAPTER MODALS -->
+<?php include('./fragments/modal/writeChapter.html'); ?>
+
 
 </body>
 </html>
