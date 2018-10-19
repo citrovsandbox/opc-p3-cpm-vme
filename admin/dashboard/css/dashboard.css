@@ -94,6 +94,8 @@ body  {
 .dataTableBody {
     background:white;
     text-align:center;
+    max-height:100px;
+    overflow:scroll;
 }
 .dataTableRowClassic {
     height:30px;
