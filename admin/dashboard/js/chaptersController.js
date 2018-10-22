@@ -31,6 +31,11 @@ $(function() {
     var oWriteChapterModalTitleInput = $('#writeChapterModalTitleInput');
     var oWriteChapterModalContentInput = $('#writeChapterModalContentInput');
     var oWriteChapterSubmitBtn = $('#writeChapterSubmitBtn');
+
+    // Inside delete modal
+    var oDeleteChapterBtn = $('#deleteChapterBtn');
+    // Inside table
+    var oDeleteChapterBtn = $('.delete-btn');
     /**
      * ----------------------------------------
      * -
@@ -54,6 +59,8 @@ $(function() {
      * -
      * -----------------------------------------
      */
+    refreshActionBtnHandlers();
+
     oChapterSearchInput.keyup(function(oEvent) { 
         var sVal = $(this).val();
         var sTitle = sVal;
@@ -94,7 +101,9 @@ $(function() {
         });
     });
 
-    
+    oDeleteChapterBtn.click(function() {
+        alert("triggered");
+    });
 })
 /**
  * --------------------------------------------
@@ -110,9 +119,7 @@ $(function() {
 var oChapterViewModel = {
     filter:'',
     chapters:[],
-    state : {
-        isWriteChapterEditorEnabled:false
-    }
+    toDeleteSelection:{}
 };
 /**
  * ---------------------------------------------
@@ -138,6 +145,7 @@ function refreshChapters (sTitle) {
     }).catch(function(err) {
         console.log('Erreur lors de la recherche des chapitres.');
         console.log(err);
+        fnReject(err);
     });
 }
 /**
@@ -147,7 +155,6 @@ function refreshChapters (sTitle) {
  * @return {void}
  */
 function renderChapters () {
-    // Reset du body
     var oTBody = $('#chaptersDataTableBody');
     oTBody.html('');
 
@@ -161,6 +168,7 @@ function renderChapters () {
             oTBody.append(createChapterRow(aChapters[i]));
         }
     }
+    refreshActionBtnHandlers();
 }
 /**
  * Fonction permettant de créer une ligne s'il n 'y a pas de chapitre
@@ -189,16 +197,67 @@ function initWriteChapterTextArea () {
             '//www.tinymce.com/css/codepen.min.css']
     });
 }
+/**
+ * Hook
+ * Fonction d'initialisation
+ * @return {void}
+ */
 function init () {
     refreshChapters('');
 }
-function RemoveTinymce()
-   {
-      if( tinymce.editors.length > 0 )
-      {
-         for( i = 0; i < tinymce.editors.length; i++ )
-         {
-            tinyMCE.editors[ i ].remove();
-         }
-      }
-   }
+/**
+ * Fonction permettant de réinstantier les handlers des boutons d'action
+ * Le DOM étant rechargé à chaque keydown
+ * @return {void}
+ */
+function refreshActionBtnHandlers () {
+    $('.delete-btn').click(function() {
+        var DeleteModal = $('#deleteModal');
+        var WillBeDeletedTitle = $('#willBeDeletedTitle');
+        var iContext = $(this).parent().parent().data('chapter-id');
+        oChapterViewModel.toDeleteSelection = getChapterFromContext(iContext);
+        var sTitle = oChapterViewModel.toDeleteSelection.title;
+        WillBeDeletedTitle.html(sTitle);
+        DeleteModal.modal('toggle');
+        refreshDeleteBtnHandler();
+    });
+}
+/**
+ * Fonction permettant de réinstantier le handler du boutons supprimer
+ * La dialog faisant bug le handler
+ * @return {void}
+ */
+function refreshDeleteBtnHandler () {
+    $('#deleteChapterBtn').click(function() {
+        var DeleteModal = $('#deleteModal');
+        var sCurrentFilter = oChapterViewModel.filter;
+        var sDeleteChapterId = oChapterViewModel.toDeleteSelection.id;
+        var oData = {zone:'chapitre', action:'delete', chapterId:sDeleteChapterId};
+        Hermes.get('../../api', oData).then(function() {
+            alert("Chapitre supprimé !");
+            DeleteModal.modal('toggle');
+            refreshChapters(sCurrentFilter);
+        }).catch(function(err) {
+            console.log(err);
+            alert('Erreur lors de la suppression');
+        });
+        
+    });
+}
+/**
+ * Permet de récupérer le chapitre lié au contexte
+ * sans requêter à nouveau le serveur puisque nous avons déjà 
+ * les chapitres en cache
+ * @param {Context} context Le contexte (ici, id de notre chapitre)
+ * @return {Object} L'objet de notre chapitre
+ */
+function getChapterFromContext (context) {
+    var oModel = oChapterViewModel;
+    var aChapters = oModel.chapters;
+
+    for(var i = 0; i < aChapters.length; i++) {
+        if(aChapters[i].id === context) {
+            return aChapters[i];
+        }
+    }
+}
