@@ -17,6 +17,7 @@ protect();
     <link rel="stylesheet" href="css/details.css">
     <link rel="stylesheet" href="css/manageChapters.css">
     <link rel="stylesheet" href="css/writeChapter.css">
+    <link rel="stylesheet" href="css/editChapter.css">
     <link rel="stylesheet" href="css/manageComments.css">
     <link rel="stylesheet" href="css/welcome.css">
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=6l6vfdj7wwq1217nbcrkprxgeacn68z8lnutrrx0s37r0dd8"></script>
@@ -56,6 +57,7 @@ protect();
 
 <!-- CHAPTER MODALS -->
 <?php include('./fragments/modal/writeChapter.html'); ?>
+<?php include('./fragments/modal/editChapter.html'); ?>
 <?php include('./fragments/modal/deleteChapter.html'); ?>
 
 </body>

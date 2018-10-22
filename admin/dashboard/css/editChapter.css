@@ -1,0 +1,46 @@
+#editChapterModal {
+    display:none;
+    /* position:absolute;
+    top:0;left:0; */
+    width:100%;height:100%;max-height:100%;
+    overflow:scroll;
+    background:white;
+    margin:none;
+}
+.modalHeaderContainer {
+    width:100%;height:60px;
+    background:white;
+    display:flex; justify-content:center;align-items:center;
+    font-size:20px;
+    transition:all 0.5s ease;
+}
+.modalHeaderContainer:hover {
+    cursor:pointer;
+    background:rgb(233,233,233);
+}
+.modalContentContainer {
+    width:60%;height:100%;
+    padding:30px;
+    margin:auto;
+}
+#editChapterModalContentInputContainer {
+    width:100%; height:auto;
+}
+#editChapterModal input, textarea {
+    width:100%;
+    margin-bottom:15px;
+}
+#editChapterModal textarea {
+    min-height:300px;
+}
+#editChapterSubmitBtn {
+    width:100%; height:40px;
+    text-align:center;
+    display:flex;
+    align-items:center;justify-content:center;
+    transition: all 0.5s ease;
+}
+#editChapterSubmitBtn:hover {
+    cursor:pointer;
+    background:rgb(233,233,233);
+}
