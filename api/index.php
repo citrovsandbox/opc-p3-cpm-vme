@@ -1,4 +1,6 @@
 <?php
+require '../model/ChapitreManager.php';
+$ChapitreManager = new ChapitreManager;
 
 if(isset($_GET['zone'])) {
     switch($_GET['zone']) {

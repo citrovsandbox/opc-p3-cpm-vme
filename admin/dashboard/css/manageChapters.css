@@ -6,3 +6,24 @@
 #chapterSearchInput {
     border:none;
 }
+.action-btn {
+    width:50%; height:100%;
+    /* border:1px solid black; */
+    /* background:red; */
+}
+.action-btn:hover {
+    cursor:pointer;
+    transition: all .33s ease;
+}
+.edit-btn {
+    background:rgb(156, 224, 255);
+}
+.edit-btn:hover {
+    background:rgb(187, 234, 255);
+}
+.delete-btn {
+    background:rgb(255, 63, 63);
+}
+.delete-btn:hover {
+    background:rgb(253, 124, 124);
+}

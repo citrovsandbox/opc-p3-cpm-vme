@@ -36,13 +36,13 @@ $(function() {
      * -
      * -
      * -
-     * -         onInit METHODS
+     * -         Init METHODS
      * -
      * -
      * -
      * -----------------------------------------
      */
-    refreshChapters('');
+    init();
     /**
      * ----------------------------------------
      * -
@@ -62,42 +62,39 @@ $(function() {
     });
 
     oChapterWriteNew.click(function() {
-        console.log("triggered");
-        console.log(WriteChapterModal);
         WriteChapterModal.open();
+        // Permet de fixer le probleme du tinymce, c'est horrible mais ça marche va savoir...
+        setTimeout(() => {
+            initWriteChapterTextArea();
+        }, 1);
+        
     });
 
     oWriteChapterModalHeader.click(function() {
+        tinymce.remove('#writeChapterModalContentInput');
         Custombox.modal.close('writeChapter');
+         
     });
 
     oWriteChapterSubmitBtn.click(function() {
         var sTitle = oWriteChapterModalTitleInput.val();
-        var sContent = oWriteChapterModalContentInput.val();
-
-        var oData = {title:sTitle, content:sContent};
+        var sContent = tinyMCE.activeEditor.getContent();
+        // var sSerialized = tinymce.util.JSON.serialize(sContent);
+        var oData = {zone:'chapitre', action:'post', title:sTitle, content:sContent};
         console.log(oData);
-
-        $.ajax({
-            url : '../../api/postChapter.php',
-            type : 'POST',
-            data: oData,
-            success : function(res){ // success est toujours en place, bien sûr !
-                var oResponse = JSON.parse(res);
-                console.log("Succès AXIOS postChapter");
-                console.log(res);
-                alert(oResponse.details);
-                refreshChapters(oChapterViewModel.filter);
-                Custombox.modal.close('writeChapter');
-            },
-     
-            error : function(err){
-                console.log("Erreur AXIOS postChapter");
-                console.log(err);
-            }
-     
-         });
+        Hermes.get('../../api', oData).then(function(oResponse) {
+            alert(oResponse.details);
+            refreshChapters(oChapterViewModel.filter);
+            Custombox.modal.close('writeChapter');
+            console.log("Objet retournée > ");
+            console.log(oResponse);
+        }).catch(function(err) {
+            console.log("Erreur lors du post du chapitre.");
+            console.log(err);
+        });
     });
+
+    
 })
 /**
  * --------------------------------------------
@@ -112,7 +109,10 @@ $(function() {
  */
 var oChapterViewModel = {
     filter:'',
-    chapters:[]
+    chapters:[],
+    state : {
+        isWriteChapterEditorEnabled:false
+    }
 };
 /**
  * ---------------------------------------------
@@ -130,19 +130,22 @@ var oChapterViewModel = {
  * 
  */
 function refreshChapters (sTitle) {
-    console.log(sTitle);
-    var sUrl = '../../api/getChapters.php?title=' + sTitle;
-    console.log("L'url");
-    console.log(sUrl);  
-    axios.get(sUrl).then(function(res) {
-        console.log(res);
-        oChapterViewModel.chapters = res.data;
+    var oData = {zone:'chapitre', action:'search', searchVal:sTitle};
+
+    Hermes.get('../../api', oData).then(function(oResponse) {
+        oChapterViewModel.chapters = oResponse.data;
         renderChapters();
     }).catch(function(err) {
         console.log('Erreur lors de la recherche des chapitres.');
         console.log(err);
     });
 }
+/**
+ * Fonction permettant de rendre dans le DOM
+ * les lignes de chapitres en se basant sur les données 
+ * contenues dans oChapterViewModel.
+ * @return {void}
+ */
 function renderChapters () {
     // Reset du body
     var oTBody = $('#chaptersDataTableBody');
@@ -159,9 +162,43 @@ function renderChapters () {
         }
     }
 }
+/**
+ * Fonction permettant de créer une ligne s'il n 'y a pas de chapitre
+ * @return {void}
+ */
 function createNoChapterText () {
     return $('<tr class="dataTableRowClassic"><td><strong class="pastel-red">Aucun chapitre avec le titre donné</strong></td></tr>');
 }
 function createChapterRow (oChapter) {
-    return $('<tr class="dataTableRow" data-chapter-id=' + oChapter.ch_id + '><td>' + oChapter.ch_title + '</td></tr>');
+    return $('<tr class="dataTableRow" data-chapter-id=' + oChapter.id + '><td>' + oChapter.title + '</td><td style="display:flex; align-items:center;"><div class="action-btn edit-btn"><i class="far fa-edit"></i></div><div class="action-btn delete-btn"><i class="far fa-trash-alt"></i></div></td></tr>');
 }
+function initWriteChapterTextArea () {
+    
+    tinyMCE.init({
+        selector: '#writeChapterModalContentInput',
+        height: 300,
+        menubar: true,
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor textcolor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table contextmenu paste code help wordcount'
+        ],
+        toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+        content_css: [
+            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+            '//www.tinymce.com/css/codepen.min.css']
+    });
+}
+function init () {
+    refreshChapters('');
+}
+function RemoveTinymce()
+   {
+      if( tinymce.editors.length > 0 )
+      {
+         for( i = 0; i < tinymce.editors.length; i++ )
+         {
+            tinyMCE.editors[ i ].remove();
+         }
+      }
+   }

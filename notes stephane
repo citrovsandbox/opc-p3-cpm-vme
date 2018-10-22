@@ -17,3 +17,4 @@ Structure figée, arrêtée.
 
 
 
+error_log('triggered', 3, 'C:\Users\Citrov\Documents\tmp_php.txt');

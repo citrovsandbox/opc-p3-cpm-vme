@@ -19,9 +19,11 @@ protect();
     <link rel="stylesheet" href="css/writeChapter.css">
     <link rel="stylesheet" href="css/manageComments.css">
     <link rel="stylesheet" href="css/welcome.css">
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=6l6vfdj7wwq1217nbcrkprxgeacn68z8lnutrrx0s37r0dd8"></script>
     <script src="../../lib/js/jquery.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="../../lib/js/Hermes.js"></script>
     <script src="../../lib/js/custombox.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="../../lib/js/bootstrap.js"></script>
     <script src="../../lib/js/bootstrap.bundle.js"></script>
     <script src="dashboard.js"></script>
@@ -54,7 +56,7 @@ protect();
 
 <!-- CHAPTER MODALS -->
 <?php include('./fragments/modal/writeChapter.html'); ?>
-
+<?php include('./fragments/modal/deleteChapter.html'); ?>
 
 </body>
 </html>
