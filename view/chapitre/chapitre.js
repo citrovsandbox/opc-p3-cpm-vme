@@ -39,7 +39,7 @@ $(function() {
             // On contacte le serveur pour upload le flag
             $.ajax({
                 type: "POST",  
-                url: "../../api/flagComment.php",
+                url: "../../api/scripts/flagComment.php",
                 data: {commentId : iId}, 
                 success: function(res){  
                     alert("Succès");

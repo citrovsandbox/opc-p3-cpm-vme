@@ -60,7 +60,7 @@
         ?>
         <div class="comment">
             <div class="comment-header">
-                <h6><?= $oComment->getAuthor() ?> <span class="comment-date">le <?php $oComment->getDate()/*$displayDate = new DateTime($oComment->getDate()); echo $displayDate->format('d/m/Y'); */ ?></span></h6>
+                <h6><?= $oComment->getAuthor() ?> <span class="comment-date">le <?php $displayDate = new DateTime($oComment->getDate()); echo $displayDate->format('d/m/Y'); ?></span></h6>
                 <div class="comment-flag" data-flag="<?= $oComment->getId() ?>" data-state="<?php if($oComment->getFlag() == 0) { echo 'unreported';}else { echo 'reported';}?>"><i class="far fa-flag" title="Commentaire abusif ? Cliquez pour signaler"></i></div>
             </div>
             <div class="comment-content">

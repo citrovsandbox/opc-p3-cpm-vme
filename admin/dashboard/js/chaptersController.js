@@ -202,7 +202,7 @@ $(function() {
      * @return {void}
      */
     function createNoChapterText () {
-        return $('<tr class="dataTableRowClassic"><td><strong class="pastel-red">Aucun chapitre</strong></td></tr>');
+        return $('<tr class="dataTableRowClassic"><td><strong class="pastel-red">Aucun chapitre</strong></td><td></td></tr>');
     }
     function createChapterRow (oChapter) {
         return $('<tr class="dataTableRow" data-chapter-id=' + oChapter.id + '><td>' + oChapter.title + '</td><td style="display:flex; align-items:center;"><div class="action-btn edit-btn"><i class="far fa-edit"></i></div><div class="action-btn delete-btn"><i class="far fa-trash-alt"></i></div></td></tr>');
