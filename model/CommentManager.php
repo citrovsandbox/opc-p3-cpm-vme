@@ -2,6 +2,7 @@
 
 require_once '../model/class/Comment.php';
 
+
 class CommentManager {
     /**
      * Fonction permettant de récupérer les chapitres d'un chapitre via son id
@@ -43,14 +44,44 @@ class CommentManager {
      * @return {Array} Un tableau d'objets commentaires
      */
     public function flag ($commentId) {
-        error_log('triggered', 3, 'C:\Users\Citrov\Documents\tmp_php.txt');
         $bdd = $this->_dbConnect();
         $req = $bdd->prepare("UPDATE comments SET com_flag=1 WHERE com_id=:commentid");
         $req->bindValue(":commentid", $commentId);
         $req->execute();
-        // error_log('triggered', 3, 'C:\Users\Citrov\Documents\tmp_php.txt');
         $req1 = $bdd->prepare("SELECT * FROM comments WHERE com_id=:commentid");
         $req1->bindValue(":commentid", $commentId);
+        $req1->execute();
+        $oComment = $req1->fetch();
+        $oNewComment = $this->_constructComment($oComment['com_id'], $oComment['com_author'], $oComment['com_content'], $oComment['com_flag'], $oComment['com_date']);
+        return $oNewComment;
+    }
+    /**
+     * Méthode permettant de unflag un commentaire
+     * @public
+     * @return {Array} Un tableau d'objets commentaires
+     */
+    public function unflag ($commentId) {
+        $bdd = $this->_dbConnect();
+        $req = $bdd->prepare("UPDATE comments SET com_flag=0 WHERE com_id=:commentid");
+        $req->bindValue(":commentid", $commentId);
+        $req->execute();
+        $req1 = $bdd->prepare("SELECT * FROM comments WHERE com_id=:commentid");
+        $req1->bindValue(":commentid", $commentId);
+        $req1->execute();
+        $oComment = $req1->fetch();
+        $oNewComment = $this->_constructComment($oComment['com_id'], $oComment['com_author'], $oComment['com_content'], $oComment['com_flag'], $oComment['com_date']);
+        return $oNewComment;
+    }
+    public function post($chapterId, $author, $content) {
+        $bdd = $this->_dbConnect();
+        $req = $bdd->prepare("INSERT INTO comments VALUES (default, :chapterid, :author, :content, 0,  NOW())");
+        $req->bindValue(":chapterid", $chapterId);
+        $req->bindValue(":author", $author);
+        $req->bindValue(":content", $content);
+        $req->execute();
+        // Afin de pouvoir retourner les valeurs du chapitre au client, on retourne chercher les données
+        $req1 = $bdd->prepare("SELECT * FROM comments WHERE com_content=:content");
+        $req1->bindValue(":content", $content);
         $req1->execute();
         $oComment = $req1->fetch();
         $oNewComment = $this->_constructComment($oComment['com_id'], $oComment['com_author'], $oComment['com_content'], $oComment['com_flag'], $oComment['com_date']);
@@ -72,7 +103,11 @@ class CommentManager {
 
         return $oComment;
     }
-
+    /** 
+     * @private
+     * Méthode permettant de se connecter à la base de données
+     * @return {Object} PDO - L'objet de la connexion à la BDD
+     */
     private function _dbConnect () {
         try
         {

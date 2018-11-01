@@ -10,6 +10,7 @@
     <script src="../../lib/js/jquery.js"></script>
     <script src="../../lib/js/bootstrap.js"></script>
     <script src="../../lib/js/bootstrap.bundle.js"></script>
+    <script src="../../lib/js/Hermes.js"></script>
     <script src="../view/chapitre/chapitre.js"></script>
 </head>
 <body>
@@ -74,7 +75,7 @@
     <div class="separator"></div>
     <!-- Zone de saisie d'un commentaire -->
     <section id="commentWriteContainer">
-        <form id="formContainer" method="POST" action="../../api/postComment.php">
+        <form id="formContainer">
             <!-- Pseudo -->
             <h6>Laisser un commentaire</h6>
             <div class="input-group mb-3">

@@ -4,6 +4,21 @@ $(function() {
      * -
      * -
      * -
+     * -         DOM Elements
+     * -
+     * -
+     * -
+     * -----------------------------------------
+     */
+    var SubmitForm = $('#formContainer');
+    var UsernameInput = $('#usernameInput');
+    var CommentTextarea = $('#commentTextarea');
+
+    /**
+     * ----------------------------------------
+     * -
+     * -
+     * -
      * -         onInit METHODS
      * -
      * -
@@ -12,6 +27,7 @@ $(function() {
      */
     initCommentsHeight();
     renderCommentsFlag();
+    getChapterId();
     /**
      * ----------------------------------------
      * -
@@ -23,6 +39,33 @@ $(function() {
      * -
      * -----------------------------------------
      */
+    SubmitForm.submit((e) => {
+        e.preventDefault();
+        var sUsername = UsernameInput.val();
+        var sContent = CommentTextarea.val();
+        var oOptions = {
+            zone:'commentaire',
+            action:'post',
+            chapterId:oViewModel.chapterId,
+            commentAuthor:sUsername,
+            commentContent:sContent
+        }
+        if(sUsername === '' || sContent === '') {
+            alert('Merci de renseigner tous les champs avant de poster un commentaire.');
+        } else {
+            Hermes.get('../../api', oOptions).then(function(oResponse) {
+                var code = oResponse.code;
+                alert(oResponse.details);
+                if(code === 200) {
+                    document.location.reload();
+                }
+            }).catch(function(err) {
+                console.error(err);
+            });
+        }
+
+    });
+
     $('#menuToggle').click(function(){
         if(oViewModel.fullComments) {
             hideComments();
@@ -68,7 +111,8 @@ $(function() {
  */
 var oViewModel = {
     commentsHeight:'0px',
-    fullComments:false
+    fullComments:false,
+    chapterId:null
 }
 /**
  * ---------------------------------------------
@@ -113,4 +157,9 @@ function renderCommentsFlag () {
 function initCommentsHeight () {
     oViewModel.commentsHeight = $("#commentsContainer").height() + 'px';
     $("#commentsContainer").css('height', oViewModel.commentsHeight);
+}
+function getChapterId () {
+    var iChapterId = parseInt(window.location.href.split('id=')[1], 10);
+    oViewModel.chapterId = iChapterId;
+    console.log(oViewModel.chapterId);
 }
