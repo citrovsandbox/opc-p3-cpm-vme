@@ -1,7 +1,9 @@
 <?php
 
 function redirectToDashboardIfLoggedIn () {
-    header('Location : ../dashboard');
+    if(isset($_SESSION['username'])) {
+        echo "<script>window.location.href = '../dashboard';</script>";
+    }
 }
 function quickConnect () {
     try
@@ -15,8 +17,8 @@ function quickConnect () {
 }
 function protect () {
     if(!isset($_SESSION['username'])) {
-        header('Location : ../index.php');
-    } else {
-        // echo $_SESSION['username'];
+        echo "<script>alert('Vous n\'êtes pas connecté. Vous allez être redirigé.');
+        window.location.href = '../index.php';</script>";
+        // header('Location : ../index.php');
     }
 }

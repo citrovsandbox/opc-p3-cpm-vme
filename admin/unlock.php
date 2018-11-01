@@ -6,8 +6,10 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
     $req = $bdd->prepare("SELECT * FROM admins WHERE username=:username");
     $req->bindValue(":username", $_POST['username']);
     $req->execute();
-    $User = $req->fetch();
-    if($User['password'] === md5($_POST['password'])) {
+    $result = $req->fetch(PDO::FETCH_ASSOC);
+    error_log(json_encode($result), 3, 'C:\Users\Citrov\Documents\tmp_php.txt');
+    error_log($result['username'], 3, 'C:\Users\Citrov\Documents\tmp_php.txt');
+    if($result['password'] === md5($_POST['password'])) {
         session_start();
         $_SESSION['username'] = $_POST['username'];
         echo '{"code": 200, "details" : "Bienvenue, ' . $_POST['username'] . '."}';

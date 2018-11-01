@@ -13,8 +13,8 @@ $(function() {
     var oCommentSearchInput = $('#commentSearchInput');
     var oCommentSearchButton = $('#commentsSearchButton');
     var oCommentsModeSwitch = $('#commentsModeSwitch');
-    var oCommentSubtitle = $('#CommentSubtitle');
-
+    var oRefreshManageCommentsTableBtn = $('#refreshManageCommentsTableBtn');
+    var oRefreshCommentsIcon = $('#refreshCommentsIcon');
     
     /**
      * ----------------------------------------
@@ -39,6 +39,9 @@ $(function() {
      * -
      * -----------------------------------------
      */
+    oRefreshManageCommentsTableBtn.click(function() {
+        refreshComments();
+    });
 
     function refreshActionBtnHandlersForComments () {
         $('.comment-watch-btn').click(function () {
@@ -48,7 +51,7 @@ $(function() {
             var ShowModal = $('#showCommentModal');
             ShowModal.modal('toggle');
             // On met à jour l'intérieur de la popup
-            $('#contextCommentDate').html(oComment.datetime);
+            $('#contextCommentDate').html(beautifyDate(oComment.datetime));
             $('#contextCommentAuthor').html(oComment.author);
             $('#contextCommentContent').html(oComment.content);
             if(oComment.reported) {
@@ -111,12 +114,14 @@ $(function() {
      * 
      */
     function refreshComments () {
+        oRefreshCommentsIcon.addClass('rotating');
         var oData = {zone:'commentaire', action:'get'};
 
         Hermes.get('../../api', oData).then(function(oResponse) {
             oCommentViewModel.comments = oResponse.data;
             oCommentViewModel.reportedComments = fetchReportedComments();
             console.log(oResponse);
+            oRefreshCommentsIcon.removeClass('rotating');
             renderComments();
         });
     }
@@ -165,7 +170,7 @@ $(function() {
         if(bIsReported) {
             return $('<tr class="dataTableRow pastel-orange-bg" data-commentid=' + oComment.id + '><td>' + oComment.author + '</td><td>' + oComment.datetime + '</td><td style="display:flex; align-items:center;"><div class="action-btn comment-watch-btn"><i class="fas fa-eye"></i></div><div class="action-btn comment-edit-btn"><i class="far fa-edit"></i></div><div class="action-btn comment-delete-btn"><i class="far fa-trash-alt"></i></div><div class="action-btn comment-approve-btn"><i class="fas fa-check"></i></div></td></tr>');
         } else {
-            return $('<tr class="dataTableRow" data-commentid=' + oComment.id + '><td>' + oComment.author + '</td><td>' + oComment.datetime + '</td><td style="display:flex; align-items:center;"><div class="action-btn comment-watch-btn"><i class="fas fa-eye"></i></div><div class="action-btn comment-edit-btn"><i class="far fa-edit"></i></div><div class="action-btn comment-delete-btn"><i class="far fa-trash-alt"></i></div><div class="action-btn comment-approve-btn"><i class="fas fa-check"></i></div></td></tr>');
+            return $('<tr class="dataTableRow" data-commentid=' + oComment.id + '><td>' + oComment.author + '</td><td>' + beautifyDate(oComment.datetime) + '</td><td style="display:flex; align-items:center;"><div class="action-btn comment-watch-btn"><i class="fas fa-eye"></i></div><div class="action-btn comment-edit-btn"><i class="far fa-edit"></i></div><div class="action-btn comment-delete-btn"><i class="far fa-trash-alt"></i></div><div class="action-btn comment-approve-btn"><i class="fas fa-check"></i></div></td></tr>');
         }
         
     }
@@ -219,6 +224,7 @@ $(function() {
         }
     }
     function refreshWatchCommentBtnHandler () {
+        $('#onValidateComment').off();
         $('#onValidateComment').click(function() {
             var ShowModal = $('#showCommentModal');
             var iCurrentCommentId = oCommentViewModel.state.currentCommentId;
@@ -240,5 +246,8 @@ $(function() {
             DeleteModal.modal('toggle');
             refreshDeleteCommentBtnHandler();
         });
+    }
+    function beautifyDate (sDate) {
+        return sDate.substring(8,10) + '/' + sDate.substring(5,7) + '/' + sDate.substring(0,4);
     }
 })

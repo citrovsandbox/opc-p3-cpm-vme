@@ -27,18 +27,19 @@ $(function() {
             username:$("#usernameInput").val(),
             password:$("#passwordInput").val()
         };
+        console.log(oData);
         $.ajax({
             type: "POST",  
             url: "../unlock.php",
             data: oData, 
             success: function(sResponse){  
+                console.log(sResponse);
                 var oResponse = JSON.parse(sResponse);
                 console.log(oResponse);
                 if(oResponse.code === 200) {
                     navTo("../dashboard");
                 } else {
                     displayError(oResponse);
-                    // renderInfoBox(oResponse);
                 }
             },
             error: function(err) { 
