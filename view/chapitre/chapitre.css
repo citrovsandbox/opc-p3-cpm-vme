@@ -117,6 +117,7 @@
 }
 .comment-content {
     text-align:justify;
+    word-wrap:break-word;
 }
 
 /* La zone de post d'un commentaire */

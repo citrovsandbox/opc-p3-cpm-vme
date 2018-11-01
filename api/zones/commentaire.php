@@ -6,7 +6,7 @@ if(isset($_GET['action'])) {
             $aComments = $CommentManager->getAll();
             $json = '[';
             foreach($aComments as $oComment) {
-                $json .= '{"id":' . $oComment->getId() . ', "author":"' . $oComment->getAuthor() . '", "content":"' . $oComment->getContent() . '", "datetime":"' . $oComment->getDate() . '"},';
+                $json .= '{"id":' . $oComment->getId() . ', "author":"' . $oComment->getAuthor() . '", "content":"' . $oComment->getContent() . '", "reported":' . json_encode($oComment->getReportedStatus()) . ',"datetime":"' . $oComment->getDate() . '"},';
             }
             if(strlen($json) > 1) {
                 $jsondata = substr_replace($json ,"", -1);
@@ -31,6 +31,14 @@ if(isset($_GET['action'])) {
                 }
             } else {
                 echo '{"code":500, "details":"Merci de renseigner l\'id du chapitre associé.", "data":[]}';
+            }
+        break;
+        case "delete":
+            if(isset($_GET['commentId'])) {
+                $CommentManager->delete($_GET['commentId']);
+                echo '{"code":200, "details":"Commentaire supprimé.", "data":[]}';
+            } else {
+                echo '{"code":500, "details":"Merci de renseigner l\'id du commentaire à supprimer.", "data":[]}';
             }
         break;
         case "flag":

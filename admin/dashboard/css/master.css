@@ -13,4 +13,117 @@
     cursor:pointer;
     opacity:0.5;
 }
+/* The switch - the box around the slider */
+.switch {
+position: relative;
+display: inline-block;
+width: 60px;
+height: 34px;
+}
 
+/* Hide default HTML checkbox */
+.switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+
+/* The slider */
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #ccc;
+-webkit-transition: .4s;
+transition: .4s;
+}
+/**
+* PASTEL COLORS
+*/
+.pastel-red {
+    color:rgb(255, 117, 117);
+}
+.pastel-blue {
+    color:rgb(151, 221, 253);
+}
+.pastel-green {
+    color:rgb(177, 252, 181);
+}
+.pastel-deepblue {
+    color:rgb(23, 22, 43);
+}
+.pastel-orange {
+    color:rgb(255, 182, 72);
+}
+/* background */
+.pastel-red-bg {
+    background:rgb(255, 117, 117);
+}
+.pastel-blue-bg {
+    background:rgb(151, 221, 253);
+}
+.pastel-green-bg {
+    background:rgb(177, 252, 181);
+}
+.pastel-deepblue-bg {
+    background:rgb(23, 22, 43);
+}
+.pastel-orange-bg {
+    background:rgb(255, 182, 72);
+}
+.edit-btn {
+    background:rgb(156, 224, 255);
+}
+.edit-btn:hover {
+    background:rgb(187, 234, 255);
+}
+.approve-btn {
+    background:rgb(177, 252, 181);
+}
+.approve-btn:hover {
+    background:rgb(195, 250, 198);
+}
+.watch-btn {
+    background:rgb(228, 228, 228)
+}
+.watch-btn:hover {
+    background:rgb(248, 248, 248)
+}
+.delete-btn {
+    background:rgb(255, 63, 63);
+}
+.delete-btn:hover {
+    background:rgb(253, 124, 124);
+}
+.comment-edit-btn {
+    background:rgb(156, 224, 255);
+    display:none;
+}
+.comment-edit-btn:hover {
+    background:rgb(187, 234, 255);
+}
+.comment-approve-btn {
+    background:rgb(177, 252, 181);
+    display:none;
+}
+.comment-approve-btn:hover {
+    background:rgb(195, 250, 198);
+}
+.comment-watch-btn {
+    background:rgb(228, 228, 228)
+}
+.comment-watch-btn:hover {
+    background:rgb(248, 248, 248)
+}
+.comment-delete-btn {
+    background:rgb(255, 63, 63);
+}
+.comment-delete-btn:hover {
+    background:rgb(253, 124, 124);
+}
+.comment-reported-row {
+    background:orange;
+}

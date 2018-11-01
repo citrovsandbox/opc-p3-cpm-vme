@@ -25,34 +25,7 @@ body  {
     display:flex;
     align-items:center;justify-content:center;
 }
-/**
-* PASTEL COLORS
-*/
-.pastel-red {
-    color:rgb(255, 117, 117);
-}
-.pastel-blue {
-    color:rgb(151, 221, 253);
-}
-.pastel-green {
-    color:rgb(177, 252, 181);
-}
-.pastel-deepblue {
-    color:rgb(23, 22, 43);
-}
-/* background */
-.pastel-red-bg {
-    background:rgb(255, 117, 117);
-}
-.pastel-blue-bg {
-    background:rgb(151, 221, 253);
-}
-.pastel-green-bg {
-    background:rgb(177, 252, 181);
-}
-.pastel-deepblue-bg {
-    background:rgb(23, 22, 43);
-}
+
 /**
 * SEARCH BAR width 60%
 */

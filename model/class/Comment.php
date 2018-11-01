@@ -15,6 +15,7 @@ class Comment {
     private $_id;
     private $_author;
     private $_content;
+    private $_reported;
     private $_flag;
     private $_date;
 
@@ -40,11 +41,19 @@ class Comment {
         return $this->_content;
     }
     public function setFlag ($flag) {
+        if($flag == 0) {
+            $this->_reported = false;
+        } else {
+            $this->_reported = true;
+        }
         $this->_flag = $flag;
         return $this;
     }
     public function getFlag (){
         return $this->_flag;
+    }
+    public function getReportedStatus (){
+        return $this->_reported;
     }
     public function setDate ($date) {
         $this->_date = $date;

@@ -88,6 +88,24 @@ class CommentManager {
         return $oNewComment;
     }
     /**
+     * Méthode permettant de supprimer un commentaire
+     * @return {Object} Le commentaire supprimé
+     */
+    public function delete($id) {
+        $bdd = $this->_dbConnect();
+        $req = $bdd->prepare("SELECT * FROM comments WHERE com_id=:id");
+        $req->bindValue(":id", $id);
+        $req->execute();
+        $oComment = $req->fetch();
+        $oNewComment = $this->_constructComment($oComment['com_id'], $oComment['com_author'], $oComment['com_content'], $oComment['com_flag'], $oComment['com_date']);
+
+        $req1 = $bdd->prepare("DELETE FROM comments WHERE com_id=:id");
+        $req1->bindValue(":id", $id);
+        $req1->execute();
+
+        return $oNewComment;
+    }
+    /**
      * Fonction permettant de construire un objet Chapitre
      * @private
      * @return {Object} Le commentaire créé
