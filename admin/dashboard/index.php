@@ -24,6 +24,7 @@ protect();
     <script src="../../lib/js/jquery.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="../../lib/js/Hermes.js"></script>
+    <script src="../../lib/js/Compass.js"></script>
     <script src="../../lib/js/custombox.min.js"></script>
     <script src="../../lib/js/bootstrap.js"></script>
     <script src="../../lib/js/bootstrap.bundle.js"></script>

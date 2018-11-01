@@ -9,8 +9,8 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
     $User = $req->fetch();
     if($User['password'] === md5($_POST['password'])) {
         session_start();
-        $_SESSION['username'] = $User['username'];
-        echo '{"code": 200, "details" : "Bienvenue, ' . $User['username'] . '."}';
+        $_SESSION['username'] = $_POST['username'];
+        echo '{"code": 200, "details" : "Bienvenue, ' . $_POST['username'] . '."}';
     } else {
         echo '{"code": 403, "details" : "Accès refusé. Combinaison incorrecte."}';
     }

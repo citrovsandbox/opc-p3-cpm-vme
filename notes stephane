@@ -18,3 +18,11 @@ Structure figée, arrêtée.
 
 
 error_log('triggered', 3, 'C:\Users\Citrov\Documents\tmp_php.txt');
+
+
+
+26/10 :
+
+Je demande à créer un chapitre avec les info liées au chapitre. Si jamais le ChapitreManager n'y arrive pas, 
+il retourne un chapitre vide.
+Dans l'idéal il retourne deux choses : un code erreur, et après la valeur.

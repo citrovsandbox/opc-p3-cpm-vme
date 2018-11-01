@@ -32,8 +32,24 @@ $(function() {
      * -
      * -----------------------------------------
      */
-    displayTheRightView();
-    Compass.run();
+    // displayTheRightView();
+    Compass.start('detailsContentContainer', [
+        {
+            name:'Gestion des commentaires',
+            componentId : 'manageCommentsContainer',
+            pattern:'/comments'
+        },
+        {
+            name:'Accueil',
+            componentId : 'welcomeContainer',
+            pattern:'/welcome'
+        },
+        {
+            name:'Gestion des chapitres',
+            componentId : 'manageChaptersContainer',
+            pattern:'/chapters'
+        }
+    ]);
     /**
      * ----------------------------------------
      * -
@@ -46,13 +62,11 @@ $(function() {
      * -----------------------------------------
      */
     oChaptersBtn.click(function() {
-        oViewModel.mode = 'chapters';
-        displayTheRightView();
+        Compass.navigate('/chapters');
     });
 
     oCommentsBtn.click(function() {
-        oViewModel.mode = 'comments';
-        displayTheRightView();
+        Compass.navigate('/comments');
     });
 
     oLogoutBtn.click(function() {
@@ -68,28 +82,6 @@ $(function() {
      * -
      * ---------------------------------------------
      */
-    function displayTheRightView() {
-        var sCurrentMode = oViewModel.mode;
-        console.log(sCurrentMode);
-        switch(sCurrentMode) {
-            case 'welcome':
-            oWelcomeView.css('display', 'block');
-            oChaptersView.css('display', 'none');
-            oCommentsView.css('display', 'none');
-            break;
-            case 'chapters':
-            oChaptersView.css('display', 'block');
-            oWelcomeView.css('display', 'none');
-            oCommentsView.css('display', 'none');
-            break;
-            case 'comments':
-            oCommentsView.css('display', 'block');
-            oWelcomeView.css('display', 'none');
-            oChaptersView.css('display', 'none');
-            break;
-        }
-    }
-    
 })
 /**
  * --------------------------------------------
