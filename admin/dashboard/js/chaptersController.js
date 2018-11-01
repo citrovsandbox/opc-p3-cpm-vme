@@ -186,7 +186,6 @@ $(function() {
         oTBody.html('');
 
         var aChapters = oChapterViewModel.chapters;
-        console.log(aChapters);
 
         if(aChapters.length < 1) {
             oTBody.append(createNoChapterText());

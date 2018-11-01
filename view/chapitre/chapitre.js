@@ -38,11 +38,11 @@ $(function() {
         if(sState === "unreported") {
             // On contacte le serveur pour upload le flag
             $.ajax({
-                type: "POST",  
-                url: "../../api/scripts/flagComment.php",
-                data: {commentId : iId}, 
+                type: "GET",  
+                url: "../../api",
+                data: {zone:'commentaire', action:'flag', commentId : iId}, 
                 success: function(res){  
-                    alert("Succès");
+                    alert(JSON.parse(res).details);
                 },
                 error: function(err) { 
                     console.log("Erreur : " + err);

@@ -9,10 +9,10 @@ class CommentManager {
      * @public
      * @return {Array} Un tableau d'objets commentaires
      */
-    public function get ($id) {
+    public function get ($chapterId) {
         $bdd = $this->_dbConnect();
-        $req = $bdd->prepare("SELECT * FROM comments WHERE com_chapitre_id=:id");
-        $req->bindValue(":id", $id);
+        $req = $bdd->prepare("SELECT * FROM comments WHERE com_chapitre_id=:chapterid");
+        $req->bindValue(":chapterid", $chapterId);
         $req->execute();
         $aComments = [];
         while($oComment = $req->fetch()) {
@@ -20,6 +20,41 @@ class CommentManager {
             array_push($aComments, $oNewComment);
         }
         return $aComments;
+    }
+    /**
+     * Méthode peremttant d'obtenir tous les commentaires
+     * @public
+     * @return {Array} Un tableau d'objets commentaires
+     */
+    public function getAll () {
+        $bdd = $this->_dbConnect();
+        $req = $bdd->prepare("SELECT * FROM comments ORDER BY com_id DESC");
+        $req->execute();
+        $aComments = [];
+        while($oComment = $req->fetch()) {
+            $oNewComment = $this->_constructComment($oComment['com_id'], $oComment['com_author'], $oComment['com_content'], $oComment['com_flag'], $oComment['com_date']);
+            array_push($aComments, $oNewComment);
+        }
+        return $aComments;
+    }
+    /**
+     * Méthode peremttant de flag un commentaire
+     * @public
+     * @return {Array} Un tableau d'objets commentaires
+     */
+    public function flag ($commentId) {
+        error_log('triggered', 3, 'C:\Users\Citrov\Documents\tmp_php.txt');
+        $bdd = $this->_dbConnect();
+        $req = $bdd->prepare("UPDATE comments SET com_flag=1 WHERE com_id=:commentid");
+        $req->bindValue(":commentid", $commentId);
+        $req->execute();
+        // error_log('triggered', 3, 'C:\Users\Citrov\Documents\tmp_php.txt');
+        $req1 = $bdd->prepare("SELECT * FROM comments WHERE com_id=:commentid");
+        $req1->bindValue(":commentid", $commentId);
+        $req1->execute();
+        $oComment = $req1->fetch();
+        $oNewComment = $this->_constructComment($oComment['com_id'], $oComment['com_author'], $oComment['com_content'], $oComment['com_flag'], $oComment['com_date']);
+        return $oNewComment;
     }
     /**
      * Fonction permettant de construire un objet Chapitre

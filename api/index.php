@@ -1,6 +1,8 @@
 <?php
 require '../model/ChapitreManager.php';
+require '../model/CommentManager.php';
 $ChapitreManager = new ChapitreManager;
+$CommentManager = new CommentManager;
 
 if(isset($_GET['zone'])) {
     switch($_GET['zone']) {
