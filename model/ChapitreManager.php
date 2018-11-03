@@ -12,8 +12,12 @@ class ChapitreManager {
         $req = $bdd->prepare("SELECT * FROM chapitres WHERE ch_id=:id");
         $req->bindValue(':id', $id);
         $req->execute();
-        $oChapter = $req->fetch();
-        $oNewChapter = $this->_constructChapitre($oChapter['ch_id'], $oChapter['ch_title'], $oChapter['ch_content'], $oChapter['ch_date']);
+        // $oChapter = $req->fetch();
+        if($oChapter = $req->fetch()) {
+            $oNewChapter = $this->_constructChapitre($oChapter['ch_id'], $oChapter['ch_title'], $oChapter['ch_content'], $oChapter['ch_date']);
+        } else {
+            return false;
+        }
         return $oNewChapter;
     }
     /**

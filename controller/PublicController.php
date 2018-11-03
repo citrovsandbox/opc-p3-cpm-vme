@@ -17,13 +17,15 @@ class PublicController {
      * @param {Integer} $id L'id du chapitre nécessaire à générer la page du chapitre
      * @return {void}
      */
-    public function chapterPage($id) {
+    public function chapterPage() {
         $ChapitreManager = new ChapitreManager;
         $CommentManager = new CommentManager;
-
-        $oChapter = $ChapitreManager->get($id);
-        $aComments = $CommentManager->get($id);
-        require_once '../view/chapitre/index.php';
+        if(isset($_GET['id']) && $oChapter = $ChapitreManager->get($_GET['id'])) {
+            $aComments = $CommentManager->get($_GET['id']);
+            require_once '../view/chapitre/index.php';
+        } else {
+            require_once '../errors/404.php';
+        }
     }
     /**
      * Fonction permettant de générer /contact.php
