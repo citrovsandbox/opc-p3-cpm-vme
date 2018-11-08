@@ -39,6 +39,13 @@ $(function() {
      * -
      * -----------------------------------------
      */
+    $('#teleporter').click(function() {
+        window.scroll({
+            top: $('#headerContainer').height() + $('#banniereContainer').height(), 
+            left: 0, 
+            behavior: 'smooth' 
+        });
+    });
     SubmitForm.submit((e) => {
         e.preventDefault();
         var sUsername = UsernameInput.val();
@@ -51,19 +58,21 @@ $(function() {
             commentContent:sContent
         }
         if(sUsername === '' || sContent === '') {
-            alert('Merci de renseigner tous les champs avant de poster un commentaire.');
+            $('#informationModal').off('hidden.bs.modal');
+            $('#infoRes').html("Merci de remplir tous les champs.");
+            $('#informationModal').modal('toggle');
         } else {
             Hermes.get('../../api', oOptions).then(function(oResponse) {
                 var code = oResponse.code;
-                alert(oResponse.details);
-                if(code === 200) {
+                $('#informationModal').on('hidden.bs.modal', function () {
                     document.location.reload();
-                }
+                });
+                $('#infoRes').html(oResponse.details);
+                $('#informationModal').modal('toggle');
             }).catch(function(err) {
                 console.error(err);
             });
         }
-
     });
 
     $('#menuToggle').click(function(){
@@ -75,26 +84,28 @@ $(function() {
     });
 
     $('.comment-flag').click(function(){
+        var self = this;
         var iId = $(this).data('flag');
         var sState = $(this).data('state');
         console.log(sState);
         if(sState === "unreported") {
-            // On contacte le serveur pour upload le flag
-            $.ajax({
-                type: "GET",  
-                url: "../../api",
-                data: {zone:'commentaire', action:'flag', commentId : iId}, 
-                success: function(res){  
-                    alert(JSON.parse(res).details);
-                },
-                error: function(err) { 
-                    console.log("Erreur : " + err);
-                }       
-            });
-            // Si la requete passe alors on appeller changeFlag
-            // on met à jour data.state vu que la fonction changeflag est à sens unique
-            changeFlag(this);
-            $(this).data('state', 'reported');
+            showAttentionModal().then(function() {
+                $('#reportBtn').off('click');
+                $('#reportBtn').on('click', function() {
+                    reportThatShit(iId).then(function(sDetails) {
+                    // Si la requete passe alors on appeller changeFlag
+                    // on met à jour data.state vu que la fonction changeflag est à sens unique
+                    $('#informationModal').off('hidden.bs.modal');
+                    $('#informationModal').on('hidden.bs.modal', function () {
+                        changeFlag(self);
+                        $(self).data('state', 'reported');
+                    });
+                    $('#infoRes').html(sDetails);
+                    $('#informationModal').modal('toggle');
+
+                    });
+                })
+            })
         }
     });
 })
@@ -162,4 +173,28 @@ function getChapterId () {
     var iChapterId = parseInt(window.location.href.split('id=')[1], 10);
     oViewModel.chapterId = iChapterId;
     console.log(oViewModel.chapterId);
+}
+
+function reportThatShit (iId) {
+    return new Promise(function(fnResolve, fnReject) {
+        $.ajax({
+            type: "GET",  
+            url: "../../api",
+            data: {zone:'commentaire', action:'flag', commentId : iId}, 
+            success: function(res){  
+                fnResolve(JSON.parse(res).details);
+            },
+            error: function(err) { 
+                fnReject("Erreur : " + err);
+            }       
+        });
+    })
+    
+}
+
+function showAttentionModal () {
+    return new Promise(function(fnResolve, fnReject) {
+        $('#attentionModal').modal('toggle');
+        fnResolve();
+    });
 }

@@ -62,5 +62,6 @@ protect();
 <?php include('./fragments/modal/deleteChapter.html'); ?>
 <?php include('./fragments/modal/deleteComment.html'); ?>
 <?php include('./fragments/modal/showComment.html'); ?>
+<?php include('./fragments/modal/informationModal.html'); ?>
 </body>
 </html>

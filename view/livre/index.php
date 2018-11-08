@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../../lib/css/bootstrap.css">
     <link rel="stylesheet" href="../../src/css/common-blog.css">
     <link rel="stylesheet" href="../view/livre/livre.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="../../lib/js/jquery.js"></script>
     <script src="../../lib/js/bootstrap.js"></script>
     <script src="../../lib/js/bootstrap.bundle.js"></script>
@@ -32,6 +33,9 @@
         <div id="titleContainer">
             <h1>Jean Forteroche</h1>
             <h2>Billet simple pour l'Alaska</h2>
+        </div>
+        <div id="teleporter" class="bring-me-to-content-please" title="Aller aux chapitres">
+            <div class="bring-me-icon"><i class="fas fa-arrow-down"></i></div>
         </div>
     </section>
 

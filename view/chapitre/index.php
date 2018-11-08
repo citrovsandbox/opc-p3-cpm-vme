@@ -35,6 +35,9 @@
             <!-- <h1>Chapitre I — Un génie qui sent fout</h1> -->
             <h2><?= $oChapter->getTitle() ?></h2>
         </div>
+        <div id="teleporter" class="bring-me-to-content-please" title="Lire le chapitre">
+            <div class="bring-me-icon"><i class="fas fa-arrow-down"></i></div>
+        </div>
     </section>
     <!-- Zone du contenu du chapitre -->
     <section id="contentContainer">
@@ -97,6 +100,47 @@
         </form>
     </section>
     <div class="separator"></div>
+</div>
+
+<!-- INFORMATION MODAL -->
+<div id="informationModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="color:#179FB5;"><i class="fas fa-info-circle"></i> Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="infoRes"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ATTENTION MODAL -->
+<div id="attentionModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="color:#179FB5;"><i class="fas fa-exclamation-triangle"></i> Avertissement</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Vous êtes sur le point de reporter un commentaire. Cette action signifie que vous allez signaler ce commentaire comme étant un contenu inapproprié.</p>
+        <p>Êtes-vous sûr de vouloir continuer ?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="reportBtn" type="button" class="btn btn-info" data-dismiss="modal">Signaler quand même</button>
+        <button type="button" class="btn btn-info" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
 </div>
 </body>
 </html>

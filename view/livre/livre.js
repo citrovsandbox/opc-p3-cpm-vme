@@ -1,6 +1,9 @@
-// $(function(){
-//     $(".chapitre-aside-inside").click(function(e){
-//         var id = e.target;
-//         console.log(id);
-//     })
-// })
+$(function(){
+    $('#teleporter').click(function() {
+        window.scroll({
+            top: $('#headerContainer').height() + $('#banniereContainer').height(), 
+            left: 0, 
+            behavior: 'smooth' 
+        });
+    });
+})

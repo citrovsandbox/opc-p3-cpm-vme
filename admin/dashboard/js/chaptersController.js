@@ -64,6 +64,7 @@ $(function() {
      * -
      * -----------------------------------------
      */
+
     refreshActionBtnHandlers();
 
     oChapterSearchInput.keyup(function(oEvent) { 
@@ -89,11 +90,15 @@ $(function() {
     oWriteChapterSubmitBtn.click(function() {
         var sTitle = oWriteChapterModalTitleInput.val();
         var sContent = tinyMCE.activeEditor.getContent();
+        if(sTitle === null || sTitle === undefined || sTitle === "" || sContent === null || sContent === undefined || sContent === "") {
+            closeWriteChapter();
+            return displayInfo("Merci de renseigner un titre et un contenu pour votre chapitre.");
+        }
         // var sSerialized = tinymce.util.JSON.serialize(sContent);
         var oData = {zone:'chapitre', action:'post', title:sTitle, content:sContent};
         console.log(oData);
         Hermes.get('../../api', oData).then(function(oResponse) {
-            alert(oResponse.details);
+            displayInfo(oResponse.details);
             refreshChapters(oChapterViewModel.filter);
             closeWriteChapter();
             console.log("Objet retournée > ");
@@ -119,7 +124,7 @@ $(function() {
         var oData = {zone:'chapitre', action:'update', chapterId: chapterId, title:sTitle, content:sContent};
         console.log(oData);
         Hermes.get('../../api', oData).then(function(oResponse) {
-            alert(oResponse.details);
+            displayInfo(oResponse.details);
             refreshChapters(oChapterViewModel.filter);
             closeEditChapter();
             console.log("Objet retournée > ");
@@ -240,7 +245,7 @@ $(function() {
                 'searchreplace visualblocks code fullscreen',
                 'insertdatetime media table contextmenu paste code help wordcount'
             ],
-            toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+            toolbar: 'insert | undo redo |  formatselect | bold italic underline backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
             content_css: [
                 '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
                 '//www.tinymce.com/css/codepen.min.css']
@@ -297,12 +302,12 @@ $(function() {
             var sDeleteChapterId = oChapterViewModel.toDeleteSelection.id;
             var oData = {zone:'chapitre', action:'delete', chapterId:sDeleteChapterId};
             Hermes.get('../../api', oData).then(function() {
-                alert("Chapitre supprimé !");
+                displayInfo("Chapitre supprimé !");
                 DeleteModal.modal('toggle');
                 refreshChapters(sCurrentFilter);
             }).catch(function(err) {
                 console.log(err);
-                alert('Erreur lors de la suppression');
+                displayInfo('Erreur lors de la suppression');
             });
             
         });
@@ -336,8 +341,14 @@ $(function() {
         tinymce.remove('#writeChapterModalContentInput');
         Custombox.modal.close('writeChapter');
     }
-
-
+    /**
+     * Fonction permettant d'afficher un message d'information
+     * @param {String} sDetails Le texte qui nous revient tout droit du serveur
+     */
+    function displayInfo (sDetails) {
+        $('#infoRes').html(sDetails);
+        $('#informationModal').modal('toggle');
+    }
 
 
 

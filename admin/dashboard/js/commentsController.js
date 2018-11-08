@@ -206,12 +206,12 @@ $(function() {
             var iDeleteCommentId = oCommentViewModel.state.currentCommentId;
             var oData = {zone:'commentaire', action:'delete', commentId:iDeleteCommentId};
             Hermes.get('../../api', oData).then(function(oResponse) {
-                alert(oResponse.details);
+                displayInfo(oResponse.details);
                 DeleteModal.modal('toggle');
                 refreshComments();
             }).catch(function(err) {
                 console.log(err);
-                alert('Erreur lors de la suppression du commentaire');
+                displayInfo('Erreur lors de la suppression du commentaire');
             });
         });
     }
@@ -230,12 +230,12 @@ $(function() {
             var iCurrentCommentId = oCommentViewModel.state.currentCommentId;
             var oData = {zone:'commentaire', action:'unflag', commentId:iCurrentCommentId};
             Hermes.get('../../api', oData).then(function(oResponse) {
-                alert(oResponse.details);
+                displayInfo(oResponse.details);
                 ShowModal.modal('toggle');
                 refreshComments();
             }).catch(function(err) {
                 console.log(err);
-                alert('Erreur lors de la suppression du commentaire');
+                displayInfo('Erreur lors de la suppression du commentaire');
             });
         });
 
@@ -249,5 +249,13 @@ $(function() {
     }
     function beautifyDate (sDate) {
         return sDate.substring(8,10) + '/' + sDate.substring(5,7) + '/' + sDate.substring(0,4);
+    }
+    /**
+     * Fonction permettant d'afficher un message d'information
+     * @param {String} sDetails Le texte qui nous revient tout droit du serveur
+     */
+    function displayInfo (sDetails) {
+        $('#infoRes').html(sDetails);
+        $('#informationModal').modal('toggle');
     }
 })
