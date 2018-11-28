@@ -1,6 +1,6 @@
 <?php
 
-require_once '../model/class/Comment.php';
+require_once __DIR__ . '/../model/class/Comment.php';
 
 
 class CommentManager {

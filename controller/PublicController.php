@@ -1,6 +1,6 @@
 <?php
-require_once '../model/ChapitreManager.php';
-require_once '../model/CommentManager.php';
+require_once __DIR__ . '/../model/ChapitreManager.php';
+require_once __DIR__ . '/../model/CommentManager.php';
 
 class PublicController {
     /**
@@ -9,7 +9,7 @@ class PublicController {
      * @return {void}
      */
     public function aboutPage () {
-        require_once '../view/about/index.html';
+        require_once __DIR__ . '/../view/about/index.html';
     }
     /**
      * Fonction permettant de générer la page /chapitre.php
@@ -22,9 +22,9 @@ class PublicController {
         $CommentManager = new CommentManager;
         if(isset($_GET['id']) && $oChapter = $ChapitreManager->get($_GET['id'])) {
             $aComments = $CommentManager->get($_GET['id']);
-            require_once '../view/chapitre/index.php';
+            require_once __DIR__ . '/../view/chapitre/index.php';
         } else {
-            require_once '../errors/404.php';
+            require_once __DIR__ . '/../errors/404.php';
         }
     }
     /**
@@ -33,7 +33,7 @@ class PublicController {
      * @return {void}
      */
     public function contactPage () {
-        require_once '../view/contact/index.html';
+        require_once __DIR__ . '/../view/contact/index.html';
     }
     /**
      * Fonction permettant de générer /livre.php
@@ -43,7 +43,7 @@ class PublicController {
     public function chaptersPage () {
         $ChapitreManager = new ChapitreManager;
         $aChapitres = $ChapitreManager->getAll();
-        require_once '../view/livre/index.php';
+        require_once __DIR__ . '/../view/livre/index.php';
     }
     
 }

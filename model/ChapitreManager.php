@@ -1,6 +1,6 @@
 <?php
 
-require_once '../model/class/Chapitre.php';
+require_once __DIR__ . '/../model/class/Chapitre.php';
 
 class ChapitreManager {
     /**

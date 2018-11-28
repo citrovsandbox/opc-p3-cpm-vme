@@ -1,5 +1,5 @@
 <?php
-require '../../utils/functions.php';
+require __DIR__ . '/../../utils/functions.php';
 session_start();
 protect();
 ?>
@@ -36,7 +36,7 @@ protect();
 <body>
 <div id="pageContainer">
     <!-- MASTER  -->
-    <?php include('./fragments/master.html') ?>
+    <?php include(__DIR__ . '/fragments/master.html') ?>
 
     <!-- DETAILS -->
     <section id="detailsContainer">
@@ -44,24 +44,24 @@ protect();
         <div id="detailsContentContainer">
 
             <!-- Vue de gestion des chapitres -->
-            <?php include('./fragments/chapters.html'); ?>
+            <?php include(__DIR__ . '/fragments/chapters.html'); ?>
 
             <!-- Vue de bienvenue -->
-            <?php include('./fragments/welcome.html'); ?>
+            <?php include(__DIR__ . '/fragments/welcome.html'); ?>
 
             <!-- Vue de gestion des commentaires -->
-            <?php include('./fragments/comments.html'); ?>
+            <?php include(__DIR__ . '/fragments/comments.html'); ?>
 
         </div>
     </section>
 </div>
 
 <!-- CHAPTER MODALS -->
-<?php include('./fragments/modal/writeChapter.html'); ?>
-<?php include('./fragments/modal/editChapter.html'); ?>
-<?php include('./fragments/modal/deleteChapter.html'); ?>
-<?php include('./fragments/modal/deleteComment.html'); ?>
-<?php include('./fragments/modal/showComment.html'); ?>
-<?php include('./fragments/modal/informationModal.html'); ?>
+<?php include(__DIR__ . '/fragments/modal/writeChapter.html'); ?>
+<?php include(__DIR__ . '/fragments/modal/editChapter.html'); ?>
+<?php include(__DIR__ . '/fragments/modal/deleteChapter.html'); ?>
+<?php include(__DIR__ . '/fragments/modal/deleteComment.html'); ?>
+<?php include(__DIR__ . '/fragments/modal/showComment.html'); ?>
+<?php include(__DIR__ . '/fragments/modal/informationModal.html'); ?>
 </body>
 </html>
