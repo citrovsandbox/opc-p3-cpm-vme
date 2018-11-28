@@ -9,12 +9,11 @@ class ChapitreManager {
      */
     public function get ($id) {
         $bdd = $this->_dbConnect();
-        $req = $bdd->prepare("SELECT * FROM chapitres WHERE ch_id=:id");
+        $req = $bdd->prepare("SELECT * FROM chapitres WHERE ch_id=:id AND ch_deleted=0");
         $req->bindValue(':id', $id);
         $req->execute();
-        // $oChapter = $req->fetch();
         if($oChapter = $req->fetch()) {
-            $oNewChapter = $this->_constructChapitre($oChapter['ch_id'], $oChapter['ch_title'], $oChapter['ch_content'], $oChapter['ch_date']);
+            $oNewChapter = $this->_constructChapitre($oChapter['ch_id'], $oChapter['ch_title'], $oChapter['ch_content'], $oChapter['ch_deleted'], $oChapter['ch_date']);
         } else {
             return false;
         }
@@ -25,12 +24,12 @@ class ChapitreManager {
      */
     public function getAll () {
         $bdd = $this->_dbConnect();
-        $req = $bdd->prepare("SELECT * FROM chapitres ORDER BY ch_id DESC");
+        $req = $bdd->prepare("SELECT * FROM chapitres WHERE ch_deleted=0 ORDER BY ch_id DESC");
         $req->execute();
         // error_log(serialize(print_r($req)), 3, 'C:\Users\Citrov\Documents\tmp_php.txt');
         $aChapitres = [];
         while($oChapter = $req->fetch()) {
-            $oNewChapter = $this->_constructChapitre($oChapter['ch_id'], $oChapter['ch_title'], $oChapter['ch_content'], $oChapter['ch_date']);
+            $oNewChapter = $this->_constructChapitre($oChapter['ch_id'], $oChapter['ch_title'], $oChapter['ch_content'], $oChapter['ch_deleted'], $oChapter['ch_date']);
             array_push($aChapitres, $oNewChapter);
         }
         return $aChapitres;
@@ -40,12 +39,12 @@ class ChapitreManager {
      */
     public function search($searchVal) {
         $bdd = $this->_dbConnect();
-        $req = $bdd->prepare("SELECT * FROM chapitres WHERE ch_title LIKE :title");
+        $req = $bdd->prepare("SELECT * FROM chapitres WHERE ch_title LIKE :title AND ch_deleted=0");
         $req->bindValue(':title', '%' . $searchVal . '%');
         $req->execute();
         $aChapitres = [];
         while($oChapter = $req->fetch()) {
-            $oNewChapter = $this->_constructChapitre($oChapter['ch_id'], $oChapter['ch_title'], $oChapter['ch_content'], $oChapter['ch_date']);
+            $oNewChapter = $this->_constructChapitre($oChapter['ch_id'], $oChapter['ch_title'], $oChapter['ch_content'], $oChapter['ch_deleted'], $oChapter['ch_date']);
             array_push($aChapitres, $oNewChapter);
         }
         return $aChapitres;
@@ -56,7 +55,7 @@ class ChapitreManager {
      */
     public function post($title, $content) {
         $bdd = $this->_dbConnect();
-        $req = $bdd->prepare("INSERT INTO chapitres VALUES (default, :title, :content, NOW())");
+        $req = $bdd->prepare("INSERT INTO chapitres VALUES (default, :title, :content, 0, NOW())");
         $req->bindValue(":title", $title);
         $req->bindValue(":content", $content);
         $req->execute();
@@ -65,7 +64,7 @@ class ChapitreManager {
         $req1->bindValue(":title", $title);
         $req1->execute();
         $oChapter = $req1->fetch();
-        $oNewChapter = $this->_constructChapitre($oChapter['ch_id'], $oChapter['ch_title'], $oChapter['ch_content'], $oChapter['ch_date']);
+        $oNewChapter = $this->_constructChapitre($oChapter['ch_id'], $oChapter['ch_title'], $oChapter['ch_content'], $oChapter['ch_deleted'], $oChapter['ch_date']);
         return $oNewChapter;
     }
     /**
@@ -73,7 +72,6 @@ class ChapitreManager {
      * @return {Object} Le chapitre mis à jour
      */
     public function update($id, $title, $content) {
-        error_log('triggered', 3, 'C:\Users\Citrov\Documents\tmp_php.txt');
         $bdd = $this->_dbConnect();
         $req = $bdd->prepare("UPDATE chapitres SET ch_title=:title, ch_content=:content WHERE ch_id=:id");
         $req->bindValue(":id", $id);
@@ -85,7 +83,7 @@ class ChapitreManager {
         $req1->bindValue(":id", $id);
         $req1->execute();
         $oChapter = $req1->fetch();
-        $oNewChapter = $this->_constructChapitre($oChapter['ch_id'], $oChapter['ch_title'], $oChapter['ch_content'], $oChapter['ch_date']);
+        $oNewChapter = $this->_constructChapitre($oChapter['ch_id'], $oChapter['ch_title'], $oChapter['ch_content'], $oChapter['ch_deleted'], $oChapter['ch_date']);
         return $oNewChapter;
     }
     /**
@@ -98,9 +96,10 @@ class ChapitreManager {
         $req->bindValue(":id", $id);
         $req->execute();
         $oChapter = $req->fetch();
-        $oNewChapter = $this->_constructChapitre($oChapter['ch_id'], $oChapter['ch_title'], $oChapter['ch_content'], $oChapter['ch_date']);
+        $oNewChapter = $this->_constructChapitre($oChapter['ch_id'], $oChapter['ch_title'], $oChapter['ch_content'], $oChapter['ch_deleted'], $oChapter['ch_date']);
 
-        $req1 = $bdd->prepare("DELETE FROM chapitres WHERE ch_id=:id");
+        // $req1 = $bdd->prepare("DELETE FROM chapitres WHERE ch_id=:id");
+        $req1 = $bdd->prepare("UPDATE chapitres SET ch_deleted=1 WHERE ch_id=:id");
         $req1->bindValue(":id", $id);
         $req1->execute();
 
@@ -111,14 +110,15 @@ class ChapitreManager {
      * @private
      * @return {Object} Le chapitre créé
      */
-    private function _constructChapitre ($id, $title, $content, $date) {
+    private function _constructChapitre ($id, $title, $content, $isDeleted, $date) {
         $oChapitre = new Chapitre;
 
         $oChapitre->setId($id);
         $oChapitre->setTitle($title);
         $oChapitre->setContent($content);
+        // $oChapitre->setIsDeleted($isDeleted);
         $oChapitre->setDate($date);
-        // $oChapitre->setNbComments($nbComments);
+
         return $oChapitre;
     }
     /** 

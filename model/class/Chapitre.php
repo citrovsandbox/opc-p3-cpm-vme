@@ -15,6 +15,7 @@ class Chapitre {
     private $_id;
     private $_title;
     private $_content;
+    private $_isDeleted;
     private $_date;
     private $_nbComments;
     /**
@@ -71,6 +72,24 @@ class Chapitre {
     public function getContent() {
         return $this->_content;
     }
+    // /**
+    //  * Fonction permettant de redéfinir le statut du chapitre
+    //  * @public
+    //  * @param {Integer} Le nouveau statut pour le chapitre
+    //  * @return {Object} L'Objet Chapitre
+    //  */
+    // public function setIsDeleted($isDeleted) {
+    //     $this->_isDeleted = $isDeleted;
+    //     return $this;
+    // }
+    // /**
+    //  * Fonction permettant d'obtenir le statut du chapitre
+    //  * @public
+    //  * @return {Integer} Le statut du chapitre (0 ou 1)
+    //  */
+    // public function getIsDeleted() {
+    //     return $this->_isDeleted;
+    // }
     /**
      * Fonction permettant de redéfinir la date du chapitre
      * @public
