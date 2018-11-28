@@ -8,7 +8,7 @@ function redirectToDashboardIfLoggedIn () {
 function quickConnect () {
     try
     {
-        return $bdd = new PDO('mysql:host=localhost;dbname=sandbox;charset=utf8', 'root', 'root');
+        return $bdd = new PDO('mysql:host=localhost;dbname=db747861774;charset=utf8', 'dbo747861774', 'Openclassrooms01!#');
     }
     catch (Exception $e)
     {
