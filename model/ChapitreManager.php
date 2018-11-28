@@ -129,7 +129,7 @@ class ChapitreManager {
     private function _dbConnect () {
         try
         {
-            return $bdd = new PDO('mysql:host=localhost;dbname=db747861774;charset=utf8', 'dbo747861774', 'Openclassrooms01!#');
+            return $bdd = new PDO('mysql:host=your_host;dbname=your_db_name;charset=utf8', 'your_db_user', 'your_db_user_pass');
         }
         catch (Exception $e)
         {
